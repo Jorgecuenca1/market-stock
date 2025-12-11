@@ -16,5 +16,22 @@ services:
     stdin_open: true
     tty: true
 
+  https-portal:
+    image: steveltn/https-portal:1
+    container_name: marketstock_https
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      DOMAINS: 'marketstock.jorgecuenca.com -> http://web:8008'
+      STAGE: 'production'
+      CLIENT_MAX_BODY_SIZE: 50M
+    volumes:
+      - https-portal-data:/var/lib/https-portal
+    depends_on:
+      - web
+    restart: unless-stopped
+
 volumes:
   media_files:
+  https-portal-data:
