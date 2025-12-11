@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ stock.symbol }} - {{ stock.name }}{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'dashboard:index' %}" class="text-secondary">
+                        {% if lang == 'es' %}Inicio{% else %}Home{% endif %}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ stock.symbol }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="mb-1">
+                            {{ stock.symbol }}
+                            <span class="sector-badge ms-2">{{ stock.sector }}</span>
+                        </h1>
+                        <p class="text-secondary mb-0">{{ stock.name }}</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        {% if price %}
+                        <div class="display-5 {% if price.change_percent > 0 %}price-up{% elif price.change_percent < 0 %}price-down{% endif %}">
+                            ${{ price.price|floatformat:2 }}
+                        </div>
+                        <div class="{% if price.change_percent > 0 %}price-up{% elif price.change_percent < 0 %}price-down{% endif %}">
+                            {% if price.change_percent > 0 %}+{% endif %}{{ price.change_percent|floatformat:2 }}%
+                            ({% if price.change > 0 %}+{% endif %}${{ price.change|floatformat:2 }})
+                        </div>
+                        {% else %}
+                        <div class="display-5 text-secondary">--</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Analysis Details -->
+{% if analysis %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-calculator me-2"></i>
+                {% if lang == 'es' %}Métricas de Valoración{% else %}Valuation Metrics{% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-dark table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="text-secondary">P/E Trailing</td>
+                            <td class="text-end">{{ analysis.pe_trailing|floatformat:2|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">P/E Forward</td>
+                            <td class="text-end">{{ analysis.pe_forward|floatformat:2|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">PEG Ratio</td>
+                            <td class="text-end">{{ analysis.peg_ratio|floatformat:2|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Cap. Mercado{% else %}Market Cap{% endif %}</td>
+                            <td class="text-end">{{ analysis.market_cap|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Precio Objetivo{% else %}Price Target{% endif %}</td>
+                            <td class="text-end">{{ analysis.price_target|default:"--" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-bank me-2"></i>
+                {% if lang == 'es' %}Balance General{% else %}Balance Sheet{% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-dark table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="text-secondary">D/E Ratio</td>
+                            <td class="text-end">{{ analysis.debt_equity|floatformat:2|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">Current Ratio</td>
+                            <td class="text-end">{{ analysis.current_ratio|floatformat:2|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Efectivo{% else %}Cash{% endif %}</td>
+                            <td class="text-end">{{ analysis.cash|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Deuda Total{% else %}Total Debt{% endif %}</td>
+                            <td class="text-end">{{ analysis.total_debt|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Efectivo Neto{% else %}Net Cash{% endif %}</td>
+                            <td class="text-end">{{ analysis.net_cash|default:"--" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-graph-up me-2"></i>
+                {% if lang == 'es' %}Rentabilidad{% else %}Profitability{% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-dark table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="text-secondary">Gross Margin</td>
+                            <td class="text-end">{% if analysis.gross_margin %}{{ analysis.gross_margin|floatformat:2 }}%{% else %}--{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">Operating Margin</td>
+                            <td class="text-end">{% if analysis.operating_margin %}{{ analysis.operating_margin|floatformat:2 }}%{% else %}--{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">Net Margin</td>
+                            <td class="text-end">{% if analysis.net_margin %}{{ analysis.net_margin|floatformat:2 }}%{% else %}--{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">ROE</td>
+                            <td class="text-end">{% if analysis.roe %}{{ analysis.roe|floatformat:2 }}%{% else %}--{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">FCF</td>
+                            <td class="text-end">{{ analysis.free_cash_flow|default:"--" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-star me-2"></i>
+                {% if lang == 'es' %}Puntuaciones{% else %}Scores{% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-dark table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="text-secondary">GF Score</td>
+                            <td class="text-end">{{ analysis.gf_score|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">Altman Z-Score</td>
+                            <td class="text-end">{{ analysis.altman_z_score|floatformat:2|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">Piotroski F-Score</td>
+                            <td class="text-end">{{ analysis.piotroski_score|default:"--" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Div. Yield{% else %}Div. Yield{% endif %}</td>
+                            <td class="text-end">{% if analysis.dividend_yield %}{{ analysis.dividend_yield|floatformat:2 }}%{% else %}--{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-secondary">{% if lang == 'es' %}Cal. Analistas{% else %}Analyst Rating{% endif %}</td>
+                            <td class="text-end">{{ analysis.analyst_rating|default:"--" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rating and Conclusion -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="bi bi-lightbulb me-2"></i>
+                    {% if lang == 'es' %}Análisis y Conclusión{% else %}Analysis & Conclusion{% endif %}
+                </span>
+                <span class="badge {% if analysis.sentiment == 'BULLISH' %}badge-bullish{% elif analysis.sentiment == 'BEARISH' %}badge-bearish{% else %}badge-neutral{% endif %} px-3 py-2">
+                    {% if lang == 'es' %}
+                        {% if analysis.sentiment == 'BULLISH' %}ALCISTA{% elif analysis.sentiment == 'BEARISH' %}BAJISTA{% else %}NEUTRAL{% endif %}
+                    {% else %}
+                        {{ analysis.sentiment }}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center mb-3 mb-md-0">
+                        <div class="display-6 rating-{{ analysis.rating|lower|slugify }}">
+                            {% if analysis.rating == 'STRONG_BUY' %}
+                                {% if lang == 'es' %}COMPRA FUERTE{% else %}STRONG BUY{% endif %}
+                            {% elif analysis.rating == 'BUY' %}
+                                {% if lang == 'es' %}COMPRA{% else %}BUY{% endif %}
+                            {% elif analysis.rating == 'HOLD' %}
+                                {% if lang == 'es' %}MANTENER{% else %}HOLD{% endif %}
+                            {% elif analysis.rating == 'SELL' %}
+                                {% if lang == 'es' %}VENTA{% else %}SELL{% endif %}
+                            {% elif analysis.rating == 'HIGH_RISK' %}
+                                {% if lang == 'es' %}ALTO RIESGO{% else %}HIGH RISK{% endif %}
+                            {% else %}
+                                {{ analysis.rating }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <p class="mb-0">
+                            {% if lang == 'es' %}
+                            {{ analysis.conclusion_es|default:analysis.conclusion_en|default:"Análisis en proceso." }}
+                            {% else %}
+                            {{ analysis.conclusion_en|default:"Analysis in progress." }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                <small class="text-secondary">
+                    {% if lang == 'es' %}Última actualización{% else %}Last updated{% endif %}:
+                    {{ analysis.timestamp|date:"F d, Y H:i" }}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Recent News -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-newspaper me-2"></i>
+                {% if lang == 'es' %}Noticias Recientes{% else %}Recent News{% endif %}
+            </div>
+            <div class="card-body">
+                {% for article in news %}
+                <div class="news-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <a href="{{ article.url }}" target="_blank" class="news-headline">
+                                {% if lang == 'es' and article.headline_es %}
+                                {{ article.headline_es }}
+                                {% else %}
+                                {{ article.headline }}
+                                {% endif %}
+                            </a>
+                            {% if article.summary %}
+                            <p class="text-secondary small mt-1 mb-0">
+                                {% if lang == 'es' and article.summary_es %}
+                                {{ article.summary_es|truncatewords:30 }}
+                                {% else %}
+                                {{ article.summary|truncatewords:30 }}
+                                {% endif %}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="news-source mt-1">
+                        {{ article.source }} • {{ article.published_at|date:"M d, Y H:i"|default:article.created_at|date:"M d, Y H:i" }}
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-secondary mb-0">
+                    {% if lang == 'es' %}No hay noticias disponibles{% else %}No news available{% endif %}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back Button -->
+<div class="row">
+    <div class="col-12">
+        <a href="{% url 'dashboard:index' %}" class="btn btn-outline-light">
+            <i class="bi bi-arrow-left me-1"></i>
+            {% if lang == 'es' %}Volver al Panel{% else %}Back to Dashboard{% endif %}
+        </a>
+    </div>
+</div>
+{% endblock %}

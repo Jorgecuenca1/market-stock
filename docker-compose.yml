@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: marketstock_app
+    command: python manage.py runserver 0.0.0.0:8008
+    volumes:
+      - .:/app
+      - media_files:/app/media
+    ports:
+      - "8008:8008"
+    environment:
+      - ALLOWED_HOSTS=marketstock.jorgecuenca.com,localhost,127.0.0.1
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  media_files:

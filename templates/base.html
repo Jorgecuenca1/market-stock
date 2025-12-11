@@ -1,0 +1,792 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ current_language|default:'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Market Stock Dashboard{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #1a56db;
+            --success-color: #059669;
+            --danger-color: #dc2626;
+            --warning-color: #d97706;
+            --dark-bg: #111827;
+            --card-bg: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--card-bg) !important;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--text-primary) !important;
+        }
+
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary) !important;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .table {
+            color: var(--text-primary);
+        }
+
+        .table-dark {
+            --bs-table-bg: var(--card-bg);
+            --bs-table-border-color: var(--border-color);
+        }
+
+        .text-success { color: var(--success-color) !important; }
+        .text-danger { color: var(--danger-color) !important; }
+        .text-warning { color: var(--warning-color) !important; }
+
+        .badge-bullish {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .badge-neutral {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .badge-bearish {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .price-up { color: var(--success-color); }
+        .price-down { color: var(--danger-color); }
+
+        .stock-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .rating-strong-buy { color: #10b981; font-weight: 700; }
+        .rating-buy { color: #34d399; }
+        .rating-hold { color: #fbbf24; }
+        .rating-sell { color: #f87171; }
+        .rating-strong-sell { color: #ef4444; font-weight: 700; }
+        .rating-high-risk { color: #f59e0b; font-weight: 700; }
+
+        .news-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-source {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .news-headline {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .news-headline:hover {
+            color: var(--primary-color);
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .language-selector a {
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .language-selector a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .language-selector a:not(.active) {
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .language-selector a:not(.active):hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .update-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .update-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .sector-badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive tables */
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        footer .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        /* AI Button styles */
+        .btn-ai {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+        .btn-ai i {
+            margin-right: 0.5rem;
+        }
+
+        /* Modal styles */
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .ai-coming-soon {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .ai-coming-soon i {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .ai-coming-soon h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .ai-coming-soon p {
+            color: var(--text-secondary);
+        }
+
+        .progress-ai {
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .progress-ai .progress-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: progress-animation 2s ease-in-out infinite;
+        }
+
+        @keyframes progress-animation {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Score indicator */
+        .score-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .score-bar {
+            width: 50px;
+            height: 4px;
+            background-color: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .score-fill.high { background-color: var(--success-color); }
+        .score-fill.medium { background-color: var(--warning-color); }
+        .score-fill.low { background-color: var(--danger-color); }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'dashboard:index' %}">
+                <i class="bi bi-graph-up-arrow me-2"></i>
+                {% if current_language == 'es' %}Panel de Mercado{% else %}Market Dashboard{% endif %}
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'dashboard:index' %}">
+                            <i class="bi bi-house me-1"></i>
+                            {% if current_language == 'es' %}Inicio{% else %}Home{% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'sp500_analysis' %}active{% endif %}" href="{% url 'dashboard:sp500_analysis' %}">
+                            <i class="bi bi-bar-chart me-1"></i>
+                            {% if current_language == 'es' %}Análisis S&P 500{% else %}S&P 500 Analysis{% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'news_report' %}active{% endif %}" href="{% url 'dashboard:news_report' %}">
+                            <i class="bi bi-newspaper me-1"></i>
+                            {% if current_language == 'es' %}Noticias{% else %}News Report{% endif %}
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Update Buttons -->
+                    <div class="btn-group me-2">
+                        <button class="btn btn-outline-success btn-sm" onclick="updateData('prices')" id="btn-prices" title="{% if current_language == 'es' %}Actualizar Precios{% else %}Update Prices{% endif %}">
+                            <i class="bi bi-currency-dollar"></i>
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" onclick="updateData('news')" id="btn-news" title="{% if current_language == 'es' %}Actualizar Noticias{% else %}Update News{% endif %}">
+                            <i class="bi bi-newspaper"></i>
+                        </button>
+                        <button class="btn btn-outline-warning btn-sm" onclick="updateData('analysis')" id="btn-analysis" title="{% if current_language == 'es' %}Actualizar Análisis{% else %}Update Analysis{% endif %}">
+                            <i class="bi bi-graph-up"></i>
+                        </button>
+                        <button class="btn btn-outline-light btn-sm" onclick="updateData('all')" id="btn-all" title="{% if current_language == 'es' %}Actualizar Todo{% else %}Update All{% endif %}">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </button>
+                    </div>
+
+                    <!-- AI Analysis Button -->
+                    <button class="btn btn-ai btn-sm" data-bs-toggle="modal" data-bs-target="#aiModal">
+                        <i class="bi bi-robot"></i>
+                        <span class="d-none d-md-inline">{% if current_language == 'es' %}IA{% else %}AI{% endif %}</span>
+                    </button>
+
+                    <!-- Settings Button -->
+                    <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#settingsModal" title="{% if current_language == 'es' %}Configuración{% else %}Settings{% endif %}">
+                        <i class="bi bi-gear"></i>
+                    </button>
+
+                    <div class="update-indicator">
+                        <span class="dot" id="update-dot"></span>
+                        <span class="d-none d-lg-inline">{% if current_language == 'es' %}En vivo{% else %}Live{% endif %}</span>
+                    </div>
+
+                    <div class="language-selector">
+                        <a href="{% url 'dashboard:set_language' 'en' %}" class="{% if current_language == 'en' %}active{% endif %}">
+                            EN
+                        </a>
+                        <a href="{% url 'dashboard:set_language' 'es' %}" class="{% if current_language == 'es' %}active{% endif %}">
+                            ES
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- AI Coming Soon Modal -->
+    <div class="modal fade" id="aiModal" tabindex="-1" aria-labelledby="aiModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aiModalLabel">
+                        <i class="bi bi-robot me-2"></i>
+                        {% if current_language == 'es' %}Análisis con IA{% else %}AI Analysis{% endif %}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ai-coming-soon">
+                        <i class="bi bi-gear-wide-connected"></i>
+                        <h4>
+                            {% if current_language == 'es' %}
+                            Muy Pronto...
+                            {% else %}
+                            Coming Soon...
+                            {% endif %}
+                        </h4>
+                        <p>
+                            {% if current_language == 'es' %}
+                            Estamos trabajando en integrar análisis avanzado con Inteligencia Artificial
+                            para brindarte recomendaciones más precisas basadas en sentiment analysis,
+                            procesamiento de noticias y predicciones de mercado.
+                            {% else %}
+                            We are working on integrating advanced AI analysis
+                            to provide you with more accurate recommendations based on sentiment analysis,
+                            news processing and market predictions.
+                            {% endif %}
+                        </p>
+                        <div class="progress-ai">
+                            <div class="progress-bar" role="progressbar"></div>
+                        </div>
+                        <p class="mt-3 small text-secondary">
+                            {% if current_language == 'es' %}
+                            Actualmente usando: Algoritmo de scoring fundamental (P/E, PEG, D/E, ROE, Margins)
+                            {% else %}
+                            Currently using: Fundamental scoring algorithm (P/E, PEG, D/E, ROE, Margins)
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {% if current_language == 'es' %}Cerrar{% else %}Close{% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">
+                        <i class="bi bi-gear me-2"></i>
+                        {% if current_language == 'es' %}Configuración de Actualizaciones{% else %}Update Settings{% endif %}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <label class="form-label text-secondary">
+                            <i class="bi bi-currency-dollar me-1"></i>
+                            {% if current_language == 'es' %}Intervalo de Precios{% else %}Price Interval{% endif %}
+                        </label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="priceInterval" id="price30" value="30000">
+                            <label class="btn btn-outline-success" for="price30">30s</label>
+                            <input type="radio" class="btn-check" name="priceInterval" id="price60" value="60000" checked>
+                            <label class="btn btn-outline-success" for="price60">1m</label>
+                            <input type="radio" class="btn-check" name="priceInterval" id="price300" value="300000">
+                            <label class="btn btn-outline-success" for="price300">5m</label>
+                            <input type="radio" class="btn-check" name="priceInterval" id="price0" value="0">
+                            <label class="btn btn-outline-danger" for="price0">Off</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary">
+                            <i class="bi bi-newspaper me-1"></i>
+                            {% if current_language == 'es' %}Intervalo de Noticias{% else %}News Interval{% endif %}
+                        </label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="newsInterval" id="news60" value="60000">
+                            <label class="btn btn-outline-info" for="news60">1m</label>
+                            <input type="radio" class="btn-check" name="newsInterval" id="news300" value="300000" checked>
+                            <label class="btn btn-outline-info" for="news300">5m</label>
+                            <input type="radio" class="btn-check" name="newsInterval" id="news600" value="600000">
+                            <label class="btn btn-outline-info" for="news600">10m</label>
+                            <input type="radio" class="btn-check" name="newsInterval" id="news0" value="0">
+                            <label class="btn btn-outline-danger" for="news0">Off</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary">
+                            <i class="bi bi-graph-up me-1"></i>
+                            {% if current_language == 'es' %}Intervalo de Análisis{% else %}Analysis Interval{% endif %}
+                        </label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="analysisInterval" id="analysis1800" value="1800000">
+                            <label class="btn btn-outline-warning" for="analysis1800">30m</label>
+                            <input type="radio" class="btn-check" name="analysisInterval" id="analysis3600" value="3600000" checked>
+                            <label class="btn btn-outline-warning" for="analysis3600">1h</label>
+                            <input type="radio" class="btn-check" name="analysisInterval" id="analysis7200" value="7200000">
+                            <label class="btn btn-outline-warning" for="analysis7200">2h</label>
+                            <input type="radio" class="btn-check" name="analysisInterval" id="analysis0" value="0">
+                            <label class="btn btn-outline-danger" for="analysis0">Off</label>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-secondary small">
+                        <i class="bi bi-info-circle me-1"></i>
+                        {% if current_language == 'es' %}
+                        Los cambios se aplican inmediatamente. La configuración se guarda en tu navegador.
+                        {% else %}
+                        Changes are applied immediately. Settings are saved in your browser.
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveSettings()" data-bs-dismiss="modal">
+                        <i class="bi bi-check-lg me-1"></i>
+                        {% if current_language == 'es' %}Guardar{% else %}Save{% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="updateToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-dark text-white">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong class="me-auto" id="toastTitle">Update</strong>
+                <small id="toastTime">now</small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bg-dark text-white" id="toastBody">
+                Data updated successfully
+            </div>
+        </div>
+    </div>
+
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">
+                        {% if current_language == 'es' %}
+                        Fuentes: Yahoo Finance, GuruFocus, StockAnalysis, FactSet, Morningstar, CNBC, Bloomberg
+                        {% else %}
+                        Sources: Yahoo Finance, GuruFocus, StockAnalysis, FactSet, Morningstar, CNBC, Bloomberg
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">
+                        {% if current_language == 'es' %}
+                        Solo para fines informativos. No es asesoramiento financiero.
+                        {% else %}
+                        For informational purposes only. Not financial advice.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Update & Auto-refresh script -->
+    <script>
+        // Interval timers
+        let priceTimer = null;
+        let newsTimer = null;
+        let analysisTimer = null;
+
+        // Default intervals (ms)
+        let intervals = {
+            prices: 60000,      // 1 minute
+            news: 300000,       // 5 minutes
+            analysis: 3600000   // 1 hour
+        };
+
+        // Toast notification
+        const toastEl = document.getElementById('updateToast');
+        const toast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3000 }) : null;
+
+        function showToast(title, message, success = true) {
+            if (!toast) return;
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastBody').textContent = message;
+            document.getElementById('toastTime').textContent = new Date().toLocaleTimeString();
+            const icon = toastEl.querySelector('.toast-header i');
+            icon.className = success ? 'bi bi-check-circle-fill text-success me-2' : 'bi bi-x-circle-fill text-danger me-2';
+            toast.show();
+        }
+
+        // Update data function
+        async function updateData(type) {
+            const btn = document.getElementById('btn-' + type);
+            const dot = document.getElementById('update-dot');
+
+            // Show loading state
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            }
+            if (dot) dot.style.backgroundColor = '#fbbf24'; // Yellow while updating
+
+            try {
+                const response = await fetch('/api/update/' + type + '/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    const lang = document.documentElement.lang;
+                    const titles = {
+                        prices: lang === 'es' ? 'Precios' : 'Prices',
+                        news: lang === 'es' ? 'Noticias' : 'News',
+                        analysis: lang === 'es' ? 'Análisis' : 'Analysis',
+                        all: lang === 'es' ? 'Todo' : 'All Data'
+                    };
+                    showToast(
+                        titles[type] + (lang === 'es' ? ' Actualizado' : ' Updated'),
+                        lang === 'es' ? 'Datos actualizados correctamente' : 'Data updated successfully',
+                        true
+                    );
+                    if (dot) dot.style.backgroundColor = '#059669'; // Green on success
+
+                    // Reload page after a short delay to show new data
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    throw new Error(data.message || 'Update failed');
+                }
+            } catch (error) {
+                console.error('Update error:', error);
+                showToast('Error', error.message, false);
+                if (dot) dot.style.backgroundColor = '#dc2626'; // Red on error
+            } finally {
+                // Restore button
+                if (btn) {
+                    btn.disabled = false;
+                    const icons = {
+                        prices: '<i class="bi bi-currency-dollar"></i>',
+                        news: '<i class="bi bi-newspaper"></i>',
+                        analysis: '<i class="bi bi-graph-up"></i>',
+                        all: '<i class="bi bi-arrow-repeat"></i>'
+                    };
+                    btn.innerHTML = icons[type] || '<i class="bi bi-arrow-repeat"></i>';
+                }
+            }
+        }
+
+        // Get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Setup automatic updates
+        function setupAutoUpdates() {
+            // Clear existing timers
+            if (priceTimer) clearInterval(priceTimer);
+            if (newsTimer) clearInterval(newsTimer);
+            if (analysisTimer) clearInterval(analysisTimer);
+
+            // Set new timers based on intervals
+            if (intervals.prices > 0) {
+                priceTimer = setInterval(() => updateData('prices'), intervals.prices);
+            }
+            if (intervals.news > 0) {
+                newsTimer = setInterval(() => updateData('news'), intervals.news);
+            }
+            if (intervals.analysis > 0) {
+                analysisTimer = setInterval(() => updateData('analysis'), intervals.analysis);
+            }
+        }
+
+        // Save settings from modal
+        function saveSettings() {
+            const priceVal = document.querySelector('input[name="priceInterval"]:checked')?.value || '60000';
+            const newsVal = document.querySelector('input[name="newsInterval"]:checked')?.value || '300000';
+            const analysisVal = document.querySelector('input[name="analysisInterval"]:checked')?.value || '3600000';
+
+            intervals.prices = parseInt(priceVal);
+            intervals.news = parseInt(newsVal);
+            intervals.analysis = parseInt(analysisVal);
+
+            // Save to localStorage
+            localStorage.setItem('marketstock_intervals', JSON.stringify(intervals));
+
+            // Restart timers
+            setupAutoUpdates();
+
+            const lang = document.documentElement.lang;
+            showToast(
+                lang === 'es' ? 'Configuración' : 'Settings',
+                lang === 'es' ? 'Intervalos guardados correctamente' : 'Intervals saved successfully',
+                true
+            );
+        }
+
+        // Load saved settings
+        function loadSettings() {
+            const saved = localStorage.getItem('marketstock_intervals');
+            if (saved) {
+                try {
+                    intervals = JSON.parse(saved);
+
+                    // Update radio buttons
+                    const priceRadio = document.querySelector(`input[name="priceInterval"][value="${intervals.prices}"]`);
+                    const newsRadio = document.querySelector(`input[name="newsInterval"][value="${intervals.news}"]`);
+                    const analysisRadio = document.querySelector(`input[name="analysisInterval"][value="${intervals.analysis}"]`);
+
+                    if (priceRadio) priceRadio.checked = true;
+                    if (newsRadio) newsRadio.checked = true;
+                    if (analysisRadio) analysisRadio.checked = true;
+                } catch (e) {
+                    console.error('Error loading settings:', e);
+                }
+            }
+        }
+
+        // Update timestamp display
+        function updateTimestamp() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString();
+            const elements = document.querySelectorAll('.last-update-time');
+            elements.forEach(el => el.textContent = timeStr);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            setupAutoUpdates();
+            setInterval(updateTimestamp, 1000);
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

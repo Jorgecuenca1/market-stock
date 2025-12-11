@@ -1,0 +1,349 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if lang == 'es' %}Análisis S&P 500{% else %}S&P 500 Analysis{% endif %} - Market Stock
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-primary bg-gradient">
+            <div class="card-body py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="text-white mb-2">
+                            <i class="bi bi-bar-chart-fill me-2"></i>
+                            {% if lang == 'es' %}ANÁLISIS S&P 500{% else %}S&P 500 ANALYSIS{% endif %}
+                        </h1>
+                        <p class="text-white-50 mb-0">
+                            S&P 500, NASDAQ, DOW JONES, NYSE |
+                            {% if lang == 'es' %}Datos Verificados{% else %}Verified Data{% endif %} |
+                            {{ report_date|date:"F d, Y" }}
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="bi bi-check-circle me-1"></i>
+                            {{ total_stocks }} {% if lang == 'es' %}Acciones Analizadas{% else %}Stocks Analyzed{% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Executive Summary -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-file-earmark-text me-2"></i>
+                {% if lang == 'es' %}RESUMEN EJECUTIVO{% else %}EXECUTIVE SUMMARY{% endif %}
+            </div>
+            <div class="card-body">
+                <p>
+                    {% if lang == 'es' %}
+                    Este informe presenta un análisis verificado de {{ total_stocks }} acciones seleccionadas del S&P 500 con datos actualizados al {{ report_date|date:"d de F, Y" }}.
+                    Incluye indicadores de los 4 índices principales y conclusiones accionables.
+                    {% else %}
+                    This report presents verified analysis of {{ total_stocks }} selected S&P 500 stocks with data updated as of {{ report_date|date:"F d, Y" }}.
+                    Includes indicators for all 4 major indices and actionable conclusions.
+                    {% endif %}
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center">
+                            <div class="badge badge-bullish me-2 px-3 py-2">{{ bullish_count }}</div>
+                            <span>{% if lang == 'es' %}Alcistas{% else %}Bullish{% endif %}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center">
+                            <div class="badge badge-neutral me-2 px-3 py-2">{{ neutral_count }}</div>
+                            <span>{% if lang == 'es' %}Neutrales{% else %}Neutral{% endif %}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center">
+                            <div class="badge badge-bearish me-2 px-3 py-2">{{ bearish_count }}</div>
+                            <span>{% if lang == 'es' %}Bajistas{% else %}Bearish{% endif %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Major Index Indicators -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-graph-up me-2"></i>
+                1. {% if lang == 'es' %}INDICADORES DE ÍNDICES PRINCIPALES{% else %}MAJOR INDEX INDICATORS{% endif %}
+            </div>
+            <div class="card-body">
+                <p class="text-secondary mb-3">
+                    {% if lang == 'es' %}
+                    Datos al cierre del mercado {{ report_date|date:"d de F, Y" }}.
+                    {% else %}
+                    Data as of market close {{ report_date|date:"F d, Y" }}.
+                    {% endif %}
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% if lang == 'es' %}ÍNDICE{% else %}INDEX{% endif %}</th>
+                                <th class="text-end">{% if lang == 'es' %}NIVEL{% else %}LEVEL{% endif %}</th>
+                                <th class="text-end">P/E TTM</th>
+                                <th class="text-end">{% if lang == 'es' %}PROM 10 AÑOS{% else %}10Y AVG{% endif %}</th>
+                                <th class="text-center">STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in indices %}
+                            <tr>
+                                <td>
+                                    <strong>{{ item.index.name }}</strong>
+                                </td>
+                                <td class="text-end">
+                                    {% if item.price %}
+                                    {{ item.price.level|floatformat:2 }}
+                                    {% else %}--{% endif %}
+                                </td>
+                                <td class="text-end">
+                                    {% if item.price.pe_ratio %}
+                                    {{ item.price.pe_ratio|floatformat:2 }}
+                                    {% else %}--{% endif %}
+                                </td>
+                                <td class="text-end">{{ item.pe_10y_avg|floatformat:1 }}</td>
+                                <td class="text-center">
+                                    <span class="badge {% if item.status == 'OVERVALUED' %}bg-danger{% elif item.status == 'UNDERVALUED' %}bg-success{% else %}bg-warning{% endif %}">
+                                        {% if lang == 'es' %}
+                                            {% if item.status == 'OVERVALUED' %}SOBREVALORADO
+                                            {% elif item.status == 'UNDERVALUED' %}SUBVALORADO
+                                            {% else %}JUSTO{% endif %}
+                                        {% else %}
+                                            {{ item.status }}
+                                        {% endif %}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-secondary">
+                                    {% if lang == 'es' %}No hay datos de índices{% else %}No index data available{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Analysis by Sector -->
+{% for sector_name, sector_stocks in sectors.items %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-building me-2"></i>
+                {% if lang == 'es' %}SECTOR {{ sector_name|upper }} - ANÁLISIS DETALLADO{% else %}{{ sector_name|upper }} SECTOR - DETAILED ANALYSIS{% endif %}
+            </div>
+            <div class="card-body">
+                {% for item in sector_stocks %}
+                <div class="{% if not forloop.last %}border-bottom border-secondary pb-4 mb-4{% endif %}">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h4 class="mb-1">
+                                <span class="badge {% if item.analysis.sentiment == 'BULLISH' %}badge-bullish{% elif item.analysis.sentiment == 'BEARISH' %}badge-bearish{% else %}badge-neutral{% endif %} me-2">
+                                    {% if item.analysis.rating == 'STRONG_BUY' %}
+                                        {% if lang == 'es' %}COMPRA FUERTE{% else %}STRONG BUY{% endif %}
+                                    {% elif item.analysis.rating == 'BUY' %}
+                                        {% if lang == 'es' %}COMPRA{% else %}BUY{% endif %}
+                                    {% elif item.analysis.rating == 'HOLD' %}
+                                        {% if lang == 'es' %}MANTENER{% else %}HOLD{% endif %}
+                                    {% elif item.analysis.rating == 'SELL' %}
+                                        {% if lang == 'es' %}VENTA{% else %}SELL{% endif %}
+                                    {% elif item.analysis.rating == 'HIGH_RISK' %}
+                                        {% if lang == 'es' %}ALTO RIESGO{% else %}HIGH RISK{% endif %}
+                                    {% else %}
+                                        {{ item.analysis.rating }}
+                                    {% endif %}
+                                </span>
+                                {{ item.stock.symbol }} - {{ item.stock.name }}
+                            </h4>
+                            <span class="text-secondary">
+                                {% if lang == 'es' %}Sector{% else %}Sector{% endif %}: {{ item.stock.sector }} |
+                                {% if lang == 'es' %}Precio{% else %}Price{% endif %}: ${{ item.analysis.price|floatformat:2|default:"--" }} |
+                                {% if lang == 'es' %}Cap. Mercado{% else %}Market Cap{% endif %}: {{ item.analysis.market_cap|default:"--" }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Grid -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <table class="table table-sm table-dark mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-secondary">P/E Trailing</td>
+                                        <td class="text-end">{{ item.analysis.pe_trailing|floatformat:2|default:"--" }}</td>
+                                        <td class="text-secondary">P/E Forward</td>
+                                        <td class="text-end">{{ item.analysis.pe_forward|floatformat:2|default:"--" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary">PEG Ratio</td>
+                                        <td class="text-end">{{ item.analysis.peg_ratio|floatformat:2|default:"--" }}</td>
+                                        <td class="text-secondary">D/E Ratio</td>
+                                        <td class="text-end">{{ item.analysis.debt_equity|floatformat:2|default:"--" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary">Current Ratio</td>
+                                        <td class="text-end">{{ item.analysis.current_ratio|floatformat:2|default:"--" }}</td>
+                                        <td class="text-secondary">ROE</td>
+                                        <td class="text-end">{% if item.analysis.roe %}{{ item.analysis.roe|floatformat:2 }}%{% else %}--{% endif %}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-sm table-dark mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-secondary">{% if lang == 'es' %}Efectivo{% else %}Cash{% endif %}</td>
+                                        <td class="text-end">{{ item.analysis.cash|default:"--" }}</td>
+                                        <td class="text-secondary">{% if lang == 'es' %}Deuda{% else %}Debt{% endif %}</td>
+                                        <td class="text-end">{{ item.analysis.total_debt|default:"--" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary">{% if lang == 'es' %}Efectivo Neto{% else %}Net Cash{% endif %}</td>
+                                        <td class="text-end">{{ item.analysis.net_cash|default:"--" }}</td>
+                                        <td class="text-secondary">FCF</td>
+                                        <td class="text-end">{{ item.analysis.free_cash_flow|default:"--" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary">Gross Margin</td>
+                                        <td class="text-end">{% if item.analysis.gross_margin %}{{ item.analysis.gross_margin|floatformat:2 }}%{% else %}--{% endif %}</td>
+                                        <td class="text-secondary">GF Score</td>
+                                        <td class="text-end">{{ item.analysis.gf_score|default:"--" }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <div class="alert alert-secondary mb-0">
+                        <i class="bi bi-lightbulb me-2"></i>
+                        <strong>{% if lang == 'es' %}Conclusión{% else %}Conclusion{% endif %}:</strong>
+                        {% if lang == 'es' %}
+                        {{ item.analysis.conclusion_es|default:item.analysis.conclusion_en|default:"Análisis en proceso." }}
+                        {% else %}
+                        {{ item.analysis.conclusion_en|default:"Analysis in progress." }}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="alert alert-info">
+            {% if lang == 'es' %}
+            No hay análisis disponibles. Ejecute la actualización de datos.
+            {% else %}
+            No analyses available. Run the data update.
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Final Recommendations -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-success bg-gradient">
+                <i class="bi bi-check2-circle me-2"></i>
+                {% if lang == 'es' %}RECOMENDACIONES FINALES{% else %}FINAL RECOMMENDATIONS{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>TICKER</th>
+                                <th>{% if lang == 'es' %}CALIFICACIÓN{% else %}RATING{% endif %}</th>
+                                <th>{% if lang == 'es' %}PERFIL IDEAL{% else %}IDEAL PROFILE{% endif %}</th>
+                                <th>{% if lang == 'es' %}RAZÓN CLAVE{% else %}KEY REASON{% endif %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sector_name, sector_stocks in sectors.items %}
+                            {% for item in sector_stocks %}
+                            <tr>
+                                <td><strong>{{ item.stock.symbol }}</strong></td>
+                                <td>
+                                    <span class="rating-{{ item.analysis.rating|lower|slugify }}">
+                                        {% if item.analysis.rating == 'STRONG_BUY' %}
+                                            {% if lang == 'es' %}COMPRA FUERTE{% else %}STRONG BUY{% endif %}
+                                        {% elif item.analysis.rating == 'BUY' %}
+                                            {% if lang == 'es' %}COMPRA{% else %}BUY{% endif %}
+                                        {% elif item.analysis.rating == 'HOLD' %}
+                                            {% if lang == 'es' %}MANTENER{% else %}HOLD{% endif %}
+                                        {% elif item.analysis.rating == 'SELL' %}
+                                            {% if lang == 'es' %}VENTA{% else %}SELL{% endif %}
+                                        {% elif item.analysis.rating == 'HIGH_RISK' %}
+                                            {% if lang == 'es' %}ALTO RIESGO{% else %}HIGH RISK{% endif %}
+                                        {% else %}
+                                            {{ item.analysis.rating }}
+                                        {% endif %}
+                                    </span>
+                                </td>
+                                <td>{{ item.stock.sector }}</td>
+                                <td class="small">
+                                    {% if lang == 'es' %}
+                                    {{ item.analysis.conclusion_es|truncatewords:15|default:"Ver análisis detallado" }}
+                                    {% else %}
+                                    {{ item.analysis.conclusion_en|truncatewords:15|default:"See detailed analysis" }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sources Footer -->
+<div class="row">
+    <div class="col-12">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <h6 class="text-secondary mb-2">
+                    <i class="bi bi-book me-2"></i>
+                    {% if lang == 'es' %}FUENTES DE DATOS UTILIZADAS{% else %}DATA SOURCES USED{% endif %}
+                </h6>
+                <p class="mb-0 small text-secondary">
+                    Yahoo Finance, GuruFocus, StockAnalysis.com, Simply Wall St, FactSet, Morningstar, TechStock², CNBC, Bloomberg, Company IR
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
