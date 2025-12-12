@@ -949,3 +949,22 @@ ERROR 2025-12-11 03:20:54,483 base_scraper Request failed for https://www.reuter
 ERROR 2025-12-11 03:20:55,015 base_scraper Request failed for https://seekingalpha.com/symbol/QCOM/news: 403 Client Error: Forbidden for url: https://seekingalpha.com/symbol/QCOM/news
 ERROR 2025-12-11 03:21:01,835 base_scraper Request failed for https://www.benzinga.com/stock/QCOM: HTTPSConnectionPool(host='www.benzinga.com', port=443): Max retries exceeded with url: /quote/QCOM (Caused by ResponseError('too many 429 error responses'))
 ERROR 2025-12-11 03:21:02,262 base_scraper Request failed for https://www.reuters.com/markets/: 401 Client Error: HTTP Forbidden for url: https://www.reuters.com/markets/
+INFO 2025-12-11 19:55:01,424 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-11 19:59:04,633 base_scraper Request failed for https://www.gurufocus.com/stock/AVGO/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVGO/summary
+ERROR 2025-12-11 19:59:06,346 base_scraper Request failed for https://www.gurufocus.com/stock/CVX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CVX/summary
+ERROR 2025-12-11 19:59:07,957 base_scraper Request failed for https://www.gurufocus.com/stock/ET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ET/summary
+ERROR 2025-12-11 19:59:09,224 base_scraper Request failed for https://www.gurufocus.com/stock/GEV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GEV/summary
+ERROR 2025-12-11 19:59:10,436 base_scraper Request failed for https://www.gurufocus.com/stock/GILD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GILD/summary
+ERROR 2025-12-11 19:59:11,646 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
+ERROR 2025-12-11 19:59:12,847 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
+ERROR 2025-12-11 19:59:14,351 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
+INFO 2025-12-11 20:07:32,742 autoreload C:\Users\HOME\PycharmProjects\market-stock\scraper\yahoo_finance.py changed, reloading.
+INFO 2025-12-11 20:07:33,386 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-11 20:07:51,760 base_scraper Request failed for https://www.gurufocus.com/stock/AVGO/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVGO/summary
+ERROR 2025-12-11 20:07:53,376 base_scraper Request failed for https://www.gurufocus.com/stock/CVX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CVX/summary
+ERROR 2025-12-11 20:07:54,533 base_scraper Request failed for https://www.gurufocus.com/stock/ET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ET/summary
+ERROR 2025-12-11 20:07:55,934 base_scraper Request failed for https://www.gurufocus.com/stock/GEV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GEV/summary
+ERROR 2025-12-11 20:07:57,206 base_scraper Request failed for https://www.gurufocus.com/stock/GILD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GILD/summary
+ERROR 2025-12-11 20:07:58,435 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
+ERROR 2025-12-11 20:07:59,655 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
+ERROR 2025-12-11 20:08:00,857 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary

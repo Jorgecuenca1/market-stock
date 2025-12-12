@@ -146,14 +146,42 @@ class YahooFinanceScraper(BaseScraper):
 
             results = []
             for article in news[:limit]:
+                # New yfinance format has nested 'content' structure
+                content = article.get('content', article)
+
+                title = content.get('title', '')
+                if not title:
+                    continue
+
+                # Get URL from canonicalUrl or clickThroughUrl
+                url = ''
+                if content.get('canonicalUrl'):
+                    url = content['canonicalUrl'].get('url', '')
+                elif content.get('clickThroughUrl'):
+                    url = content['clickThroughUrl'].get('url', '')
+
+                # Get publisher
+                publisher = 'Yahoo Finance'
+                if content.get('provider'):
+                    publisher = content['provider'].get('displayName', 'Yahoo Finance')
+
+                # Get published date
+                published_at = None
+                pub_date = content.get('pubDate')
+                if pub_date:
+                    try:
+                        # Format: '2025-11-04T23:18:53Z'
+                        published_at = datetime.strptime(pub_date, '%Y-%m-%dT%H:%M:%SZ')
+                    except:
+                        pass
+
                 results.append({
-                    'title': article.get('title'),
-                    'publisher': article.get('publisher'),
-                    'link': article.get('link'),
-                    'published_at': datetime.fromtimestamp(article.get('providerPublishTime', 0)),
-                    'type': article.get('type'),
-                    'thumbnail': article.get('thumbnail', {}).get('resolutions', [{}])[0].get('url') if article.get('thumbnail') else None,
-                    'source': 'Yahoo Finance',
+                    'title': title,
+                    'publisher': publisher,
+                    'link': url,
+                    'published_at': published_at,
+                    'summary': content.get('summary', ''),
+                    'source': publisher,
                 })
             return results
         except Exception as e:
