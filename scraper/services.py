@@ -108,31 +108,51 @@ class ScrapingService:
         return results
 
     def update_news(self) -> Dict[str, Any]:
-        """Update news for all tracked stocks."""
+        """Update news for all tracked stocks using Yahoo Finance only."""
         start_time = timezone.now()
         results = {'stocks': 0, 'articles': 0, 'errors': []}
 
+        # Words that indicate garbage/navigation content
+        garbage_keywords = [
+            'skip to', 'main content', 'latin america', 'europe & middle east',
+            'united states', 'world markets', 'latest news', 'sign in',
+            'subscribe', 'menu', 'navigation', 'footer', 'header',
+            'cookie', 'privacy', 'terms of', 'contact us'
+        ]
+
+        def is_valid_headline(headline):
+            """Check if headline is a real news article."""
+            if not headline or len(headline) < 20:
+                return False
+            headline_lower = headline.lower()
+            for keyword in garbage_keywords:
+                if keyword in headline_lower:
+                    return False
+            return True
+
         for stock in Stock.objects.filter(is_active=True):
             try:
-                # Get news from Yahoo Finance
-                yahoo_news = self.yahoo.get_news(stock.symbol, limit=10)
+                # Get news ONLY from Yahoo Finance (reliable source)
+                yahoo_news = self.yahoo.get_news(stock.symbol, limit=15)
 
-                # Get news from aggregator
-                aggregated = self.news.scrape(stock.symbol)
-                all_news = yahoo_news + aggregated.get('news', [])
+                for article in yahoo_news:
+                    headline = article.get('title', '')
 
-                for article in all_news:
-                    # Check if article already exists (by headline)
+                    # Skip garbage headlines
+                    if not is_valid_headline(headline):
+                        continue
+
+                    # Check if article already exists
                     if not StockNews.objects.filter(
                         stock=stock,
-                        headline=article.get('title') or article.get('headline')
+                        headline=headline
                     ).exists():
                         StockNews.objects.create(
                             stock=stock,
-                            headline=article.get('title') or article.get('headline', ''),
+                            headline=headline,
                             summary=article.get('summary', ''),
-                            url=article.get('link') or article.get('url', ''),
-                            source=article.get('source', article.get('publisher', 'Unknown')),
+                            url=article.get('link', ''),
+                            source=article.get('publisher', 'Yahoo Finance'),
                             published_at=article.get('published_at'),
                         )
                         results['articles'] += 1
@@ -143,21 +163,27 @@ class ScrapingService:
                 results['errors'].append(f"{stock.symbol}: {str(e)}")
                 logger.error(f"Error updating news for {stock.symbol}: {e}")
 
-        # Get general market news
+        # Get general market news from major indices
         try:
-            market_news = self.news.get_market_news(limit=30)
-            for article in market_news:
-                headline = article.get('headline', '')
-                if headline and not MarketNews.objects.filter(headline=headline).exists():
-                    MarketNews.objects.create(
-                        headline=headline,
-                        summary=article.get('summary', ''),
-                        url=article.get('url', ''),
-                        source=article.get('source', 'Unknown'),
-                        category=article.get('category', 'market'),
-                        published_at=article.get('published_at'),
-                    )
-                    results['articles'] += 1
+            market_symbols = ['^GSPC', '^DJI', '^IXIC']
+            for symbol in market_symbols:
+                market_news = self.yahoo.get_news(symbol, limit=10)
+                for article in market_news:
+                    headline = article.get('title', '')
+
+                    if not is_valid_headline(headline):
+                        continue
+
+                    if not MarketNews.objects.filter(headline=headline).exists():
+                        MarketNews.objects.create(
+                            headline=headline,
+                            summary=article.get('summary', ''),
+                            url=article.get('link', ''),
+                            source=article.get('publisher', 'Yahoo Finance'),
+                            category='market',
+                            published_at=article.get('published_at'),
+                        )
+                        results['articles'] += 1
         except Exception as e:
             results['errors'].append(f"Market news: {str(e)}")
             logger.error(f"Error updating market news: {e}")
