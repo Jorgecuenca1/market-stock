@@ -968,3 +968,4 @@ ERROR 2025-12-11 20:07:57,206 base_scraper Request failed for https://www.gurufo
 ERROR 2025-12-11 20:07:58,435 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
 ERROR 2025-12-11 20:07:59,655 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
 ERROR 2025-12-11 20:08:00,857 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
+WARNING 2025-12-11 20:13:17,564 log Not Found: /favicon.ico
