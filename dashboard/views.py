@@ -108,20 +108,12 @@ def sp500_analysis(request):
                 'analysis': latest_analysis,
             })
 
-    # Calculate summary stats
-    all_analyses = StockAnalysis.objects.filter(
-        stock__is_active=True
-    ).order_by('stock', '-timestamp').distinct('stock') if hasattr(StockAnalysis.objects, 'distinct') else []
-
-    # For SQLite (no distinct on field)
-    if not all_analyses:
-        seen = set()
-        all_analyses = []
-        for stock in Stock.objects.filter(is_active=True):
-            latest = stock.analyses.first()
-            if latest and stock.id not in seen:
-                all_analyses.append(latest)
-                seen.add(stock.id)
+    # Calculate summary stats - compatible with SQLite
+    all_analyses = []
+    for stock in Stock.objects.filter(is_active=True):
+        latest = stock.analyses.first()
+        if latest:
+            all_analyses.append(latest)
 
     bullish_count = sum(1 for a in all_analyses if a.sentiment == 'BULLISH')
     neutral_count = sum(1 for a in all_analyses if a.sentiment == 'NEUTRAL')
