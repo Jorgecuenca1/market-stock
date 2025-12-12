@@ -969,3 +969,61 @@ ERROR 2025-12-11 20:07:58,435 base_scraper Request failed for https://www.gurufo
 ERROR 2025-12-11 20:07:59,655 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
 ERROR 2025-12-11 20:08:00,857 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
 WARNING 2025-12-11 20:13:17,564 log Not Found: /favicon.ico
+ERROR 2025-12-12 09:00:24,694 yahoo_finance Error scraping AVGO from Yahoo Finance: Failed to perform, curl: (6) Could not resolve host: query1.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,351 yahoo_finance Error scraping LLY from Yahoo Finance: Failed to perform, curl: (6) Recv failure: Connection was reset. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,374 yahoo_finance Error scraping NVDA from Yahoo Finance: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,401 yahoo_finance Error scraping QCOM from Yahoo Finance: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,421 yahoo_finance Error scraping index ^DJI: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,430 yahoo_finance Error scraping index ^NDX: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,436 yahoo_finance Error scraping index ^RUT: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,440 yahoo_finance Error scraping index ^GSPC: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 10:15:19,444 yahoo_finance Error scraping index ^VIX: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 11:36:09,073 yahoo_finance Error scraping AVGO from Yahoo Finance: Failed to perform, curl: (6) Could not resolve host: query1.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+INFO 2025-12-12 15:08:10,861 autoreload C:\Users\HOME\PycharmProjects\market-stock\market_stock\settings.py changed, reloading.
+INFO 2025-12-12 15:08:12,002 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-12 15:08:29,019 base_scraper Request failed for https://www.gurufocus.com/stock/AVGO/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVGO/summary
+ERROR 2025-12-12 15:08:30,722 base_scraper Request failed for https://www.gurufocus.com/stock/CVX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CVX/summary
+ERROR 2025-12-12 15:08:31,968 base_scraper Request failed for https://www.gurufocus.com/stock/ET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ET/summary
+ERROR 2025-12-12 15:08:33,185 base_scraper Request failed for https://www.gurufocus.com/stock/GEV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GEV/summary
+ERROR 2025-12-12 15:08:34,373 base_scraper Request failed for https://www.gurufocus.com/stock/GILD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GILD/summary
+ERROR 2025-12-12 15:08:35,935 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
+ERROR 2025-12-12 15:08:37,305 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
+ERROR 2025-12-12 15:08:38,542 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
+INFO 2025-12-12 15:13:17,583 services Initialized stock: NVDA
+INFO 2025-12-12 15:13:17,592 services Initialized stock: AVGO
+INFO 2025-12-12 15:13:17,601 services Initialized stock: GOOGL
+INFO 2025-12-12 15:13:17,609 services Initialized stock: META
+INFO 2025-12-12 15:13:17,616 services Initialized stock: MSFT
+INFO 2025-12-12 15:13:17,624 services Initialized stock: INTC
+INFO 2025-12-12 15:13:17,630 services Initialized stock: TSM
+INFO 2025-12-12 15:13:17,637 services Initialized stock: AMP
+INFO 2025-12-12 15:13:17,646 services Initialized stock: AXP
+INFO 2025-12-12 15:13:17,658 services Initialized stock: CB
+INFO 2025-12-12 15:13:17,666 services Initialized stock: CEG
+INFO 2025-12-12 15:13:17,673 services Initialized stock: GEV
+INFO 2025-12-12 15:13:17,679 services Initialized stock: EME
+INFO 2025-12-12 15:13:17,687 services Initialized stock: SPCE
+INFO 2025-12-12 15:13:17,695 services Initialized index: ^GSPC
+INFO 2025-12-12 15:13:17,701 services Initialized index: ^NDX
+INFO 2025-12-12 15:13:17,709 services Initialized index: ^DJI
+INFO 2025-12-12 15:13:17,717 services Initialized index: ^RUT
+INFO 2025-12-12 15:13:17,724 services Initialized index: ^VIX
+ERROR 2025-12-12 15:13:47,396 base_scraper Request failed for https://www.gurufocus.com/stock/AMP/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMP/summary
+ERROR 2025-12-12 15:13:49,162 base_scraper Request failed for https://www.gurufocus.com/stock/AVGO/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVGO/summary
+ERROR 2025-12-12 15:13:50,512 base_scraper Request failed for https://www.gurufocus.com/stock/AXP/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AXP/summary
+ERROR 2025-12-12 15:13:51,721 base_scraper Request failed for https://www.gurufocus.com/stock/CB/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CB/summary
+ERROR 2025-12-12 15:13:53,232 base_scraper Request failed for https://www.gurufocus.com/stock/CEG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CEG/summary
+ERROR 2025-12-12 15:13:54,423 base_scraper Request failed for https://www.gurufocus.com/stock/CVX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CVX/summary
+ERROR 2025-12-12 15:13:55,645 base_scraper Request failed for https://www.gurufocus.com/stock/EME/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/EME/summary
+ERROR 2025-12-12 15:13:56,995 base_scraper Request failed for https://www.gurufocus.com/stock/ET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ET/summary
+ERROR 2025-12-12 15:13:58,426 base_scraper Request failed for https://www.gurufocus.com/stock/GEV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GEV/summary
+ERROR 2025-12-12 15:13:59,812 base_scraper Request failed for https://www.gurufocus.com/stock/GILD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GILD/summary
+ERROR 2025-12-12 15:14:01,128 base_scraper Request failed for https://www.gurufocus.com/stock/GOOGL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GOOGL/summary
+ERROR 2025-12-12 15:14:02,427 base_scraper Request failed for https://www.gurufocus.com/stock/INTC/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/INTC/summary
+ERROR 2025-12-12 15:14:03,733 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
+ERROR 2025-12-12 15:14:04,958 base_scraper Request failed for https://www.gurufocus.com/stock/META/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/META/summary
+ERROR 2025-12-12 15:14:06,242 base_scraper Request failed for https://www.gurufocus.com/stock/MSFT/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/MSFT/summary
+ERROR 2025-12-12 15:14:07,470 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
+ERROR 2025-12-12 15:14:08,787 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
+ERROR 2025-12-12 15:14:10,068 base_scraper Request failed for https://www.gurufocus.com/stock/SPCE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/SPCE/summary
+ERROR 2025-12-12 15:14:11,392 base_scraper Request failed for https://www.gurufocus.com/stock/TSM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/TSM/summary

@@ -131,14 +131,26 @@ CELERY_TIMEZONE = TIME_ZONE
 
 # Stock Configuration
 TRACKED_STOCKS = [
+    # Technology
     {'symbol': 'NVDA', 'name': 'NVIDIA Corporation', 'sector': 'Technology'},
     {'symbol': 'AVGO', 'name': 'Broadcom Inc.', 'sector': 'Technology'},
-    {'symbol': 'QCOM', 'name': 'Qualcomm Inc.', 'sector': 'Technology'},
-    {'symbol': 'LLY', 'name': 'Eli Lilly & Co.', 'sector': 'Healthcare'},
-    {'symbol': 'GILD', 'name': 'Gilead Sciences', 'sector': 'Healthcare'},
-    {'symbol': 'CVX', 'name': 'Chevron Corporation', 'sector': 'Energy'},
+    {'symbol': 'GOOGL', 'name': 'Alphabet Inc.', 'sector': 'Technology'},
+    {'symbol': 'META', 'name': 'Meta Platforms Inc.', 'sector': 'Technology'},
+    {'symbol': 'MSFT', 'name': 'Microsoft Corporation', 'sector': 'Technology'},
+    {'symbol': 'INTC', 'name': 'Intel Corporation', 'sector': 'Technology'},
+    {'symbol': 'TSM', 'name': 'Taiwan Semiconductor', 'sector': 'Technology'},
+    # Financial Services
+    {'symbol': 'AMP', 'name': 'Ameriprise Financial', 'sector': 'Financial Services'},
+    {'symbol': 'AXP', 'name': 'American Express Co.', 'sector': 'Financial Services'},
+    # Insurance
+    {'symbol': 'CB', 'name': 'Chubb Limited', 'sector': 'Insurance'},
+    # Energy / Utilities
+    {'symbol': 'CEG', 'name': 'Constellation Energy', 'sector': 'Utilities'},
     {'symbol': 'GEV', 'name': 'GE Vernova Inc.', 'sector': 'Industrial'},
-    {'symbol': 'ET', 'name': 'Energy Transfer LP', 'sector': 'Energy'},
+    # Construction
+    {'symbol': 'EME', 'name': 'EMCOR Group Inc.', 'sector': 'Construction'},
+    # Aerospace
+    {'symbol': 'SPCE', 'name': 'Virgin Galactic Holdings', 'sector': 'Aerospace'},
 ]
 
 TRACKED_INDICES = [
