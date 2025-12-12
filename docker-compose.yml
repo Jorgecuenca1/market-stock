@@ -16,6 +16,19 @@ services:
     stdin_open: true
     tty: true
 
+  scheduler:
+    build: .
+    container_name: marketstock_scheduler
+    command: python manage.py run_scheduler --price-interval=60 --news-interval=300 --analysis-interval=3600
+    volumes:
+      - .:/app
+      - media_files:/app/media
+    environment:
+      - ALLOWED_HOSTS=marketstock.jorgecuenca.com,localhost,127.0.0.1
+    depends_on:
+      - web
+    restart: unless-stopped
+
   https-portal:
     image: steveltn/https-portal:1
     container_name: marketstock_https
