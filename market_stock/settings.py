@@ -161,6 +161,61 @@ TRACKED_INDICES = [
     {'symbol': '^VIX', 'name': 'VIX'},
 ]
 
+# Secondary Dashboard Stocks
+TRACKED_STOCKS_SECONDARY = [
+    # Technology
+    {'symbol': 'AAPL', 'name': 'Apple Inc.', 'sector': 'Technology'},
+    {'symbol': 'AMZN', 'name': 'Amazon.com Inc.', 'sector': 'Technology'},
+    {'symbol': 'AMAT', 'name': 'Applied Materials', 'sector': 'Technology'},
+    {'symbol': 'ANET', 'name': 'Arista Networks', 'sector': 'Technology'},
+    {'symbol': 'BABA', 'name': 'Alibaba Group', 'sector': 'Technology'},
+    {'symbol': 'NFLX', 'name': 'Netflix Inc.', 'sector': 'Technology'},
+    {'symbol': 'ORCL', 'name': 'Oracle Corporation', 'sector': 'Technology'},
+    {'symbol': 'QCOM', 'name': 'Qualcomm Inc.', 'sector': 'Technology'},
+    {'symbol': 'RBLX', 'name': 'Roblox Corporation', 'sector': 'Technology'},
+    # Cybersecurity
+    {'symbol': 'CRWD', 'name': 'CrowdStrike Holdings', 'sector': 'Cybersecurity'},
+    {'symbol': 'CYBR', 'name': 'CyberArk Software', 'sector': 'Cybersecurity'},
+    # Financial Services
+    {'symbol': 'GS', 'name': 'Goldman Sachs', 'sector': 'Financial Services'},
+    {'symbol': 'JPM', 'name': 'JPMorgan Chase', 'sector': 'Financial Services'},
+    {'symbol': 'MA', 'name': 'Mastercard Inc.', 'sector': 'Financial Services'},
+    {'symbol': 'V', 'name': 'Visa Inc.', 'sector': 'Financial Services'},
+    {'symbol': 'PRU', 'name': 'Prudential Financial', 'sector': 'Financial Services'},
+    {'symbol': 'HOOD', 'name': 'Robinhood Markets', 'sector': 'Financial Services'},
+    {'symbol': 'DAVE', 'name': 'Dave Inc.', 'sector': 'Financial Services'},
+    # Energy
+    {'symbol': 'XOM', 'name': 'Exxon Mobil', 'sector': 'Energy'},
+    {'symbol': 'CVX', 'name': 'Chevron Corporation', 'sector': 'Energy'},
+    {'symbol': 'ET', 'name': 'Energy Transfer LP', 'sector': 'Energy'},
+    {'symbol': 'FSLR', 'name': 'First Solar Inc.', 'sector': 'Energy'},
+    {'symbol': 'NRG', 'name': 'NRG Energy', 'sector': 'Energy'},
+    {'symbol': 'VST', 'name': 'Vistra Corp.', 'sector': 'Energy'},
+    # Healthcare
+    {'symbol': 'GILD', 'name': 'Gilead Sciences', 'sector': 'Healthcare'},
+    {'symbol': 'LLY', 'name': 'Eli Lilly & Co.', 'sector': 'Healthcare'},
+    {'symbol': 'ISRG', 'name': 'Intuitive Surgical', 'sector': 'Healthcare'},
+    {'symbol': 'AZNCF', 'name': 'AstraZeneca PLC', 'sector': 'Healthcare'},
+    # Industrial / Aerospace
+    {'symbol': 'BA', 'name': 'Boeing Company', 'sector': 'Aerospace'},
+    {'symbol': 'GE', 'name': 'General Electric', 'sector': 'Industrial'},
+    {'symbol': 'ETN', 'name': 'Eaton Corporation', 'sector': 'Industrial'},
+    {'symbol': 'NOC', 'name': 'Northrop Grumman', 'sector': 'Aerospace'},
+    {'symbol': 'AVAV', 'name': 'AeroVironment Inc.', 'sector': 'Aerospace'},
+    {'symbol': 'AXON', 'name': 'Axon Enterprise', 'sector': 'Industrial'},
+    # Infrastructure / Construction
+    {'symbol': 'ROAD', 'name': 'Construction Partners', 'sector': 'Construction'},
+    # Crypto / Mining
+    {'symbol': 'IREN', 'name': 'Iris Energy Limited', 'sector': 'Crypto Mining'},
+    # Travel
+    {'symbol': 'VIK', 'name': 'Viking Holdings Ltd', 'sector': 'Travel'},
+    # Other
+    {'symbol': 'CRWV', 'name': 'CrowdStrike Holdings', 'sector': 'Technology'},
+    {'symbol': 'CRCL', 'name': 'Circle Internet', 'sector': 'Financial Services'},
+    {'symbol': 'IVES', 'name': 'IVES ETF', 'sector': 'ETF'},
+    {'symbol': 'OSMCX', 'name': 'Osmium Fund', 'sector': 'Fund'},
+]
+
 # Scraping intervals (in minutes)
 NEWS_UPDATE_INTERVAL = 5
 PRICE_UPDATE_INTERVAL = 1

@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if lang == 'es' %}Reporte de Noticias Secundario{% else %}Secondary News Report{% endif %} - Market Stock
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-warning bg-gradient">
+            <div class="card-body py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="text-dark mb-2">
+                            <i class="bi bi-newspaper me-2"></i>
+                            {% if lang == 'es' %}NOTICIAS - DASHBOARD SECUNDARIO{% else %}SECONDARY DASHBOARD NEWS{% endif %}
+                        </h1>
+                        <p class="text-dark-50 mb-0">
+                            {% if lang == 'es' %}
+                            Ultimas Noticias y Analisis para Acciones Secundarias |
+                            {% else %}
+                            Latest News & Analysis for Secondary Stocks |
+                            {% endif %}
+                            {{ report_date|date:"F d, Y" }}
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <span class="badge bg-dark text-white px-3 py-2">
+                            <i class="bi bi-collection me-1"></i>
+                            {{ total_articles }} {% if lang == 'es' %}Articulos{% else %}Articles{% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between">
+            <div class="btn-group">
+                <a href="{% url 'dashboard:secondary_index' %}" class="btn btn-outline-warning">
+                    <i class="bi bi-house me-1"></i> Home
+                </a>
+                <a href="{% url 'dashboard:secondary_analysis' %}" class="btn btn-outline-warning">
+                    <i class="bi bi-graph-up me-1"></i> {% if lang == 'es' %}Analisis{% else %}Analysis{% endif %}
+                </a>
+                <a href="{% url 'dashboard:secondary_news' %}" class="btn btn-warning">
+                    <i class="bi bi-newspaper me-1"></i> News Reports
+                </a>
+            </div>
+            <a href="{% url 'dashboard:index' %}" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left me-1"></i>
+                {% if lang == 'es' %}Dashboard Principal{% else %}Main Dashboard{% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Auto-refresh indicator -->
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="update-indicator">
+                <span class="dot"></span>
+                <span>
+                    {% if lang == 'es' %}
+                    Actualizando cada 5 minutos | Ultima actualizacion:
+                    {% else %}
+                    Updating every 5 minutes | Last update:
+                    {% endif %}
+                    <span class="last-update-time">{{ report_date|time:"H:i:s" }}</span>
+                </span>
+            </div>
+            <div>
+                <span class="badge badge-bullish me-1">{{ sentiments.bullish }} {% if lang == 'es' %}Alcistas{% else %}Bullish{% endif %}</span>
+                <span class="badge badge-neutral me-1">{{ sentiments.neutral }} {% if lang == 'es' %}Neutrales{% else %}Neutral{% endif %}</span>
+                <span class="badge badge-bearish">{{ sentiments.bearish }} {% if lang == 'es' %}Bajistas{% else %}Bearish{% endif %}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- News by Stock -->
+{% for item in stocks_news %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <strong class="me-2">{{ item.stock.symbol }}</strong>
+                    <span class="text-secondary">- {{ item.stock.name }}</span>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-secondary small">
+                        {% if lang == 'es' %}Sector{% else %}Sector{% endif %}: {{ item.stock.sector }}
+                    </span>
+                    {% if item.price %}
+                    <span>
+                        {% if lang == 'es' %}Precio{% else %}Price{% endif %}:
+                        <strong>${{ item.price.price|floatformat:2 }}</strong>
+                    </span>
+                    {% endif %}
+                    <span class="badge {% if item.sentiment == 'BULLISH' %}badge-bullish{% elif item.sentiment == 'BEARISH' %}badge-bearish{% else %}badge-neutral{% endif %}">
+                        {% if lang == 'es' %}
+                            {% if item.sentiment == 'BULLISH' %}ALCISTA{% elif item.sentiment == 'BEARISH' %}BAJISTA{% else %}NEUTRAL{% endif %}
+                        {% else %}
+                            {{ item.sentiment }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h6 class="text-secondary mb-3">
+                            <i class="bi bi-list-ul me-1"></i>
+                            {% if lang == 'es' %}Ultimas Noticias{% else %}Latest News{% endif %}:
+                        </h6>
+                        <div class="news-list">
+                            {% for news in item.news %}
+                            <div class="news-item-row mb-2 pb-2 border-bottom border-secondary">
+                                <a href="{{ news.url }}" target="_blank" rel="noopener" class="news-headline text-decoration-none d-block">
+                                    {% if lang == 'es' and news.headline_es %}
+                                    {{ news.headline_es }}
+                                    {% else %}
+                                    {{ news.headline }}
+                                    {% endif %}
+                                </a>
+                                <div class="news-meta mt-1">
+                                    <small class="text-warning">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        {{ news.published_at|date:"M d, Y - H:i"|default:news.created_at|date:"M d, Y - H:i" }}
+                                    </small>
+                                    <small class="text-secondary ms-3">
+                                        <i class="bi bi-newspaper me-1"></i>{{ news.source }}
+                                    </small>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="text-center text-secondary py-3">
+                                {% if lang == 'es' %}No hay noticias disponibles{% else %}No news available{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        {% if item.analysis %}
+                        <h6 class="text-secondary mb-3">
+                            <i class="bi bi-lightbulb me-1"></i>
+                            {% if lang == 'es' %}Conclusion{% else %}Conclusion{% endif %}:
+                        </h6>
+                        <div class="alert {% if item.sentiment == 'BULLISH' %}alert-success{% elif item.sentiment == 'BEARISH' %}alert-danger{% else %}alert-warning{% endif %} small mb-0">
+                            {% if lang == 'es' %}
+                            {{ item.analysis.conclusion_es|default:item.analysis.conclusion_en|default:"Analisis pendiente." }}
+                            {% else %}
+                            {{ item.analysis.conclusion_en|default:"Analysis pending." }}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="alert alert-info">
+            {% if lang == 'es' %}
+            No hay noticias disponibles. Ejecute la actualizacion de datos.
+            {% else %}
+            No news available. Run the data update.
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- General Market News -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <i class="bi bi-globe me-2"></i>
+                {% if lang == 'es' %}NOTICIAS GENERALES DEL MERCADO{% else %}GENERAL MARKET NEWS{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for news in market_news %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="news-item h-100">
+                            <a href="{{ news.url }}" target="_blank" class="news-headline">
+                                {% if lang == 'es' and news.headline_es %}
+                                {{ news.headline_es }}
+                                {% else %}
+                                {{ news.headline }}
+                                {% endif %}
+                            </a>
+                            <div class="news-source mt-1">
+                                <span class="badge bg-secondary me-1">{{ news.category }}</span>
+                                {{ news.source }} - {{ news.published_at|date:"M d, H:i"|default:news.created_at|date:"M d, H:i" }}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <p class="text-secondary mb-0">
+                            {% if lang == 'es' %}No hay noticias del mercado{% else %}No market news available{% endif %}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sentiment Summary -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-pie-chart me-2"></i>
+                {% if lang == 'es' %}RESUMEN DE SENTIMIENTO{% else %}SENTIMENT SUMMARY{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="display-4 text-success">{{ sentiments.bullish }}</div>
+                        <div class="text-secondary">
+                            {% if lang == 'es' %}ALCISTA{% else %}BULLISH{% endif %}
+                        </div>
+                        <div class="small text-muted">
+                            {% for item in stocks_news %}
+                                {% if item.sentiment == 'BULLISH' %}{{ item.stock.symbol }}{% if not forloop.last %}, {% endif %}{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="display-4 text-warning">{{ sentiments.neutral }}</div>
+                        <div class="text-secondary">
+                            {% if lang == 'es' %}NEUTRAL{% else %}NEUTRAL{% endif %}
+                        </div>
+                        <div class="small text-muted">
+                            {% for item in stocks_news %}
+                                {% if item.sentiment == 'NEUTRAL' %}{{ item.stock.symbol }}{% if not forloop.last %}, {% endif %}{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="display-4 text-danger">{{ sentiments.bearish }}</div>
+                        <div class="text-secondary">
+                            {% if lang == 'es' %}BAJISTA{% else %}BEARISH{% endif %}
+                        </div>
+                        <div class="small text-muted">
+                            {% for item in stocks_news %}
+                                {% if item.sentiment == 'BEARISH' %}{{ item.stock.symbol }}{% if not forloop.last %}, {% endif %}{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -196,3 +196,165 @@ def stock_detail(request, symbol):
         'lang': lang,
     }
     return render(request, 'dashboard/stock_detail.html', context)
+
+
+# ============================================
+# SECONDARY DASHBOARD VIEWS
+# ============================================
+
+def get_secondary_stocks():
+    """Get list of secondary dashboard stock symbols."""
+    return [s['symbol'] for s in settings.TRACKED_STOCKS_SECONDARY]
+
+
+def secondary_index(request):
+    """Secondary dashboard main view."""
+    lang = get_language(request)
+    secondary_symbols = get_secondary_stocks()
+
+    # Get latest prices for secondary stocks
+    stocks = []
+    for stock in Stock.objects.filter(symbol__in=secondary_symbols, is_active=True):
+        latest_price = stock.prices.first()
+        latest_analysis = stock.analyses.first()
+        stocks.append({
+            'stock': stock,
+            'price': latest_price,
+            'analysis': latest_analysis,
+        })
+
+    indices = []
+    for index in Index.objects.filter(is_active=True):
+        latest_price = index.prices.first()
+        indices.append({
+            'index': index,
+            'price': latest_price,
+        })
+
+    # Get recent news for secondary stocks
+    recent_news = StockNews.objects.filter(stock__symbol__in=secondary_symbols)[:10]
+    market_news = MarketNews.objects.all()[:5]
+
+    context = {
+        'stocks': stocks,
+        'indices': indices,
+        'recent_news': recent_news,
+        'market_news': market_news,
+        'lang': lang,
+        'last_update': timezone.now(),
+        'is_secondary': True,
+    }
+    return render(request, 'dashboard/secondary/index.html', context)
+
+
+def secondary_analysis(request):
+    """Secondary dashboard S&P 500 Analysis view."""
+    lang = get_language(request)
+    secondary_symbols = get_secondary_stocks()
+
+    # Get index data
+    indices_data = []
+    pe_averages = {
+        '^GSPC': 18.7,
+        '^NDX': 26.3,
+        '^DJI': 20.2,
+        '^RUT': 18.0,
+    }
+
+    for index in Index.objects.filter(is_active=True):
+        latest_price = index.prices.first()
+        if latest_price:
+            pe_avg = pe_averages.get(index.symbol, 20)
+            pe_current = float(latest_price.pe_ratio) if latest_price.pe_ratio else None
+
+            status = 'FAIR'
+            if pe_current and pe_current > pe_avg * 1.3:
+                status = 'OVERVALUED'
+            elif pe_current and pe_current < pe_avg * 0.8:
+                status = 'UNDERVALUED'
+
+            indices_data.append({
+                'index': index,
+                'price': latest_price,
+                'pe_10y_avg': pe_avg,
+                'status': status,
+            })
+
+    # Get stock analyses grouped by sector (secondary stocks only)
+    sectors = {}
+    for stock in Stock.objects.filter(symbol__in=secondary_symbols, is_active=True):
+        latest_analysis = stock.analyses.first()
+        if latest_analysis:
+            sector = stock.sector
+            if sector not in sectors:
+                sectors[sector] = []
+            sectors[sector].append({
+                'stock': stock,
+                'analysis': latest_analysis,
+            })
+
+    # Calculate summary stats
+    all_analyses = []
+    for stock in Stock.objects.filter(symbol__in=secondary_symbols, is_active=True):
+        latest = stock.analyses.first()
+        if latest:
+            all_analyses.append(latest)
+
+    bullish_count = sum(1 for a in all_analyses if a.sentiment == 'BULLISH')
+    neutral_count = sum(1 for a in all_analyses if a.sentiment == 'NEUTRAL')
+    bearish_count = sum(1 for a in all_analyses if a.sentiment == 'BEARISH')
+
+    context = {
+        'indices': indices_data,
+        'sectors': sectors,
+        'bullish_count': bullish_count,
+        'neutral_count': neutral_count,
+        'bearish_count': bearish_count,
+        'total_stocks': len(all_analyses),
+        'lang': lang,
+        'report_date': timezone.now(),
+        'is_secondary': True,
+    }
+    return render(request, 'dashboard/secondary/sp500_analysis.html', context)
+
+
+def secondary_news_report(request):
+    """Secondary dashboard News report view."""
+    lang = get_language(request)
+    secondary_symbols = get_secondary_stocks()
+
+    # Get news grouped by stock (secondary stocks only)
+    stocks_news = []
+    for stock in Stock.objects.filter(symbol__in=secondary_symbols, is_active=True):
+        latest_price = stock.prices.first()
+        news = stock.news.all()[:6]
+        latest_analysis = stock.analyses.first()
+
+        stocks_news.append({
+            'stock': stock,
+            'price': latest_price,
+            'news': news,
+            'analysis': latest_analysis,
+            'sentiment': latest_analysis.sentiment if latest_analysis else 'NEUTRAL',
+        })
+
+    # General market news
+    market_news = MarketNews.objects.all()[:15]
+
+    # Calculate sentiment summary
+    sentiments = {
+        'bullish': sum(1 for s in stocks_news if s['sentiment'] == 'BULLISH'),
+        'neutral': sum(1 for s in stocks_news if s['sentiment'] == 'NEUTRAL'),
+        'bearish': sum(1 for s in stocks_news if s['sentiment'] == 'BEARISH'),
+    }
+
+    context = {
+        'stocks_news': stocks_news,
+        'market_news': market_news,
+        'sentiments': sentiments,
+        'lang': lang,
+        'report_date': timezone.now(),
+        'total_articles': StockNews.objects.filter(stock__symbol__in=secondary_symbols).count(),
+        'is_secondary': True,
+    }
+    return render(request, 'dashboard/secondary/news_report.html', context)

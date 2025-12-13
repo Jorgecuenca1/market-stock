@@ -371,6 +371,12 @@
                             {% if current_language == 'es' %}Noticias{% else %}News Report{% endif %}
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-warning btn-sm ms-2 {% if 'secondary' in request.path %}active{% endif %}" href="{% url 'dashboard:secondary_index' %}">
+                            <i class="bi bi-grid-1x2 me-1"></i>
+                            {% if current_language == 'es' %}Dashboard Secundario{% else %}Secondary Dashboard{% endif %}
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="d-flex align-items-center gap-2">

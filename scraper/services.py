@@ -31,6 +31,7 @@ class ScrapingService:
 
     def initialize_stocks(self) -> None:
         """Initialize tracked stocks and indices from settings."""
+        # Primary dashboard stocks
         for stock_config in settings.TRACKED_STOCKS:
             Stock.objects.update_or_create(
                 symbol=stock_config['symbol'],
@@ -41,6 +42,18 @@ class ScrapingService:
                 }
             )
             logger.info(f"Initialized stock: {stock_config['symbol']}")
+
+        # Secondary dashboard stocks
+        for stock_config in getattr(settings, 'TRACKED_STOCKS_SECONDARY', []):
+            Stock.objects.update_or_create(
+                symbol=stock_config['symbol'],
+                defaults={
+                    'name': stock_config['name'],
+                    'sector': stock_config['sector'],
+                    'is_active': True,
+                }
+            )
+            logger.info(f"Initialized secondary stock: {stock_config['symbol']}")
 
         for index_config in settings.TRACKED_INDICES:
             Index.objects.update_or_create(

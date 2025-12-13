@@ -8,7 +8,8 @@
       "Bash(\".venv/Scripts/python.exe\" manage.py update_data)",
       "Bash(\".venv/Scripts/python.exe\":*)",
       "Bash(\".venv/Scripts/python.exe\" -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''Stocks initialized!'')\n\")",
-      "Bash(\".venv/Scripts/python.exe\" manage.py shell -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''Stocks initialized!'')\n\")"
+      "Bash(\".venv/Scripts/python.exe\" manage.py shell -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''Stocks initialized!'')\n\")",
+      "Bash(\".venv/Scripts/python.exe\" manage.py shell -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''All stocks initialized!'')\n\")"
     ]
   }
 }
