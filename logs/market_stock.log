@@ -1549,3 +1549,123 @@ ERROR 2025-12-12 17:35:49,656 yahoo_finance Error scraping index ^RUT: Failed to
 ERROR 2025-12-12 17:35:49,658 yahoo_finance Error scraping index ^GSPC: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
 ERROR 2025-12-12 17:35:49,658 yahoo_finance Error scraping index ^VIX: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
 ERROR 2025-12-12 17:35:49,661 yahoo_finance Error scraping index ^VIX: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+WARNING 2025-12-12 19:41:42,420 log Not Found: /favicon.ico
+ERROR 2025-12-12 19:43:43,394 yahoo_finance Error scraping AAPL from Yahoo Finance: Failed to perform, curl: (6) Could not resolve host: query2.finance.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 19:53:19,362 yahoo_finance Error scraping GILD from Yahoo Finance: Failed to perform, curl: (28) Operation timed out after 30008 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-12 19:53:19,518 yahoo_finance Error scraping NFLX from Yahoo Finance: Failed to perform, curl: (28) Operation timed out after 30017 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+ERROR 2025-12-13 10:28:02,866 base_scraper Request failed for https://www.gurufocus.com/stock/AAPL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AAPL/summary
+ERROR 2025-12-13 10:28:06,036 base_scraper Request failed for https://www.gurufocus.com/stock/AMAT/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMAT/summary
+ERROR 2025-12-13 10:28:06,648 base_scraper Request failed for https://www.gurufocus.com/stock/AAPL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AAPL/summary
+ERROR 2025-12-13 10:28:07,572 base_scraper Request failed for https://www.gurufocus.com/stock/AMP/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMP/summary
+ERROR 2025-12-13 10:28:08,814 base_scraper Request failed for https://www.gurufocus.com/stock/AMAT/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMAT/summary
+ERROR 2025-12-13 10:28:08,963 base_scraper Request failed for https://www.gurufocus.com/stock/AMZN/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMZN/summary
+ERROR 2025-12-13 10:28:11,544 base_scraper Request failed for https://www.gurufocus.com/stock/AMP/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMP/summary
+ERROR 2025-12-13 10:28:11,559 base_scraper Request failed for https://www.gurufocus.com/stock/ANET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ANET/summary
+ERROR 2025-12-13 10:28:12,922 base_scraper Request failed for https://www.gurufocus.com/stock/AMZN/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AMZN/summary
+ERROR 2025-12-13 10:28:12,986 base_scraper Request failed for https://www.gurufocus.com/stock/AVAV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVAV/summary
+ERROR 2025-12-13 10:28:14,222 base_scraper Request failed for https://www.gurufocus.com/stock/ANET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ANET/summary
+ERROR 2025-12-13 10:28:14,266 base_scraper Request failed for https://www.gurufocus.com/stock/AVGO/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVGO/summary
+ERROR 2025-12-13 10:28:15,527 base_scraper Request failed for https://www.gurufocus.com/stock/AVAV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVAV/summary
+ERROR 2025-12-13 10:28:15,920 base_scraper Request failed for https://www.gurufocus.com/stock/AXON/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AXON/summary
+ERROR 2025-12-13 10:28:16,965 base_scraper Request failed for https://www.gurufocus.com/stock/AVGO/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AVGO/summary
+ERROR 2025-12-13 10:28:17,301 base_scraper Request failed for https://www.gurufocus.com/stock/AXP/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AXP/summary
+ERROR 2025-12-13 10:28:18,489 base_scraper Request failed for https://www.gurufocus.com/stock/AXON/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AXON/summary
+ERROR 2025-12-13 10:28:18,670 base_scraper Request failed for https://www.gurufocus.com/stock/AZNCF/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AZNCF/summary
+ERROR 2025-12-13 10:28:18,863 base_scraper Request failed for https://stockanalysis.com/stocks/azncf/financials/ratios/: 404 Client Error: Not Found for url: https://stockanalysis.com/stocks/azncf/financials/ratios/
+ERROR 2025-12-13 10:28:19,751 base_scraper Request failed for https://www.gurufocus.com/stock/AXP/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AXP/summary
+ERROR 2025-12-13 10:28:19,939 base_scraper Request failed for https://www.gurufocus.com/stock/BA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/BA/summary
+ERROR 2025-12-13 10:28:21,248 base_scraper Request failed for https://www.gurufocus.com/stock/AZNCF/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/AZNCF/summary
+ERROR 2025-12-13 10:28:21,390 base_scraper Request failed for https://www.gurufocus.com/stock/BABA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/BABA/summary
+ERROR 2025-12-13 10:28:21,406 base_scraper Request failed for https://stockanalysis.com/stocks/azncf/financials/ratios/: 404 Client Error: Not Found for url: https://stockanalysis.com/stocks/azncf/financials/ratios/
+ERROR 2025-12-13 10:28:22,760 base_scraper Request failed for https://www.gurufocus.com/stock/BA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/BA/summary
+ERROR 2025-12-13 10:28:22,901 base_scraper Request failed for https://www.gurufocus.com/stock/CB/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CB/summary
+ERROR 2025-12-13 10:28:24,088 base_scraper Request failed for https://www.gurufocus.com/stock/BABA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/BABA/summary
+ERROR 2025-12-13 10:28:24,375 base_scraper Request failed for https://www.gurufocus.com/stock/CEG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CEG/summary
+ERROR 2025-12-13 10:28:25,380 base_scraper Request failed for https://www.gurufocus.com/stock/CB/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CB/summary
+ERROR 2025-12-13 10:28:25,705 base_scraper Request failed for https://www.gurufocus.com/stock/CRCL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CRCL/summary
+ERROR 2025-12-13 10:28:26,595 base_scraper Request failed for https://www.gurufocus.com/stock/CEG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CEG/summary
+ERROR 2025-12-13 10:28:26,994 base_scraper Request failed for https://www.gurufocus.com/stock/CRWD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CRWD/summary
+ERROR 2025-12-13 10:28:27,966 base_scraper Request failed for https://www.gurufocus.com/stock/CRCL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CRCL/summary
+ERROR 2025-12-13 10:28:28,386 base_scraper Request failed for https://www.gurufocus.com/stock/CRWV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CRWV/summary
+ERROR 2025-12-13 10:28:29,526 base_scraper Request failed for https://www.gurufocus.com/stock/CRWD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CRWD/summary
+ERROR 2025-12-13 10:28:30,023 base_scraper Request failed for https://www.gurufocus.com/stock/CVX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CVX/summary
+ERROR 2025-12-13 10:28:30,980 base_scraper Request failed for https://www.gurufocus.com/stock/CRWV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CRWV/summary
+ERROR 2025-12-13 10:28:31,427 base_scraper Request failed for https://www.gurufocus.com/stock/CYBR/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CYBR/summary
+ERROR 2025-12-13 10:28:32,214 base_scraper Request failed for https://www.gurufocus.com/stock/CVX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CVX/summary
+ERROR 2025-12-13 10:28:32,768 base_scraper Request failed for https://www.gurufocus.com/stock/DAVE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/DAVE/summary
+ERROR 2025-12-13 10:28:33,542 base_scraper Request failed for https://www.gurufocus.com/stock/CYBR/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/CYBR/summary
+ERROR 2025-12-13 10:28:34,082 base_scraper Request failed for https://www.gurufocus.com/stock/EME/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/EME/summary
+ERROR 2025-12-13 10:28:34,809 base_scraper Request failed for https://www.gurufocus.com/stock/DAVE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/DAVE/summary
+ERROR 2025-12-13 10:28:35,596 base_scraper Request failed for https://www.gurufocus.com/stock/ET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ET/summary
+ERROR 2025-12-13 10:28:36,295 base_scraper Request failed for https://www.gurufocus.com/stock/EME/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/EME/summary
+ERROR 2025-12-13 10:28:37,012 base_scraper Request failed for https://www.gurufocus.com/stock/ETN/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ETN/summary
+ERROR 2025-12-13 10:28:37,877 base_scraper Request failed for https://www.gurufocus.com/stock/ET/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ET/summary
+ERROR 2025-12-13 10:28:38,471 base_scraper Request failed for https://www.gurufocus.com/stock/FSLR/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/FSLR/summary
+ERROR 2025-12-13 10:28:39,207 base_scraper Request failed for https://www.gurufocus.com/stock/ETN/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ETN/summary
+ERROR 2025-12-13 10:28:39,916 base_scraper Request failed for https://www.gurufocus.com/stock/GE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GE/summary
+ERROR 2025-12-13 10:28:40,438 base_scraper Request failed for https://www.gurufocus.com/stock/FSLR/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/FSLR/summary
+ERROR 2025-12-13 10:28:41,120 base_scraper Request failed for https://www.gurufocus.com/stock/GEV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GEV/summary
+ERROR 2025-12-13 10:28:41,578 base_scraper Request failed for https://www.gurufocus.com/stock/GE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GE/summary
+ERROR 2025-12-13 10:28:42,405 base_scraper Request failed for https://www.gurufocus.com/stock/GILD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GILD/summary
+ERROR 2025-12-13 10:28:42,885 base_scraper Request failed for https://www.gurufocus.com/stock/GEV/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GEV/summary
+ERROR 2025-12-13 10:28:43,616 base_scraper Request failed for https://www.gurufocus.com/stock/GOOGL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GOOGL/summary
+ERROR 2025-12-13 10:28:44,089 base_scraper Request failed for https://www.gurufocus.com/stock/GILD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GILD/summary
+ERROR 2025-12-13 10:28:44,846 base_scraper Request failed for https://www.gurufocus.com/stock/GS/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GS/summary
+ERROR 2025-12-13 10:28:45,279 base_scraper Request failed for https://www.gurufocus.com/stock/GOOGL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GOOGL/summary
+ERROR 2025-12-13 10:28:46,422 base_scraper Request failed for https://www.gurufocus.com/stock/HOOD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/HOOD/summary
+ERROR 2025-12-13 10:28:46,649 base_scraper Request failed for https://www.gurufocus.com/stock/GS/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/GS/summary
+ERROR 2025-12-13 10:28:47,831 base_scraper Request failed for https://www.gurufocus.com/stock/INTC/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/INTC/summary
+ERROR 2025-12-13 10:28:47,905 base_scraper Request failed for https://www.gurufocus.com/stock/HOOD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/HOOD/summary
+ERROR 2025-12-13 10:28:49,192 base_scraper Request failed for https://www.gurufocus.com/stock/INTC/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/INTC/summary
+ERROR 2025-12-13 10:28:49,196 base_scraper Request failed for https://www.gurufocus.com/stock/IREN/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/IREN/summary
+ERROR 2025-12-13 10:28:50,543 base_scraper Request failed for https://www.gurufocus.com/stock/ISRG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ISRG/summary
+ERROR 2025-12-13 10:28:50,587 base_scraper Request failed for https://www.gurufocus.com/stock/IREN/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/IREN/summary
+ERROR 2025-12-13 10:28:52,036 base_scraper Request failed for https://www.gurufocus.com/stock/ISRG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ISRG/summary
+ERROR 2025-12-13 10:28:52,048 base_scraper Request failed for https://www.gurufocus.com/stock/IVES/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/IVES/summary
+ERROR 2025-12-13 10:28:52,347 base_scraper Request failed for https://stockanalysis.com/stocks/ives/financials/ratios/: 404 Client Error: Not Found for url: https://stockanalysis.com/stocks/ives/financials/ratios/
+ERROR 2025-12-13 10:28:53,591 base_scraper Request failed for https://www.gurufocus.com/stock/IVES/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/IVES/summary
+ERROR 2025-12-13 10:28:53,595 base_scraper Request failed for https://www.gurufocus.com/stock/JPM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/JPM/summary
+ERROR 2025-12-13 10:28:53,725 base_scraper Request failed for https://stockanalysis.com/stocks/ives/financials/ratios/: 404 Client Error: Not Found for url: https://stockanalysis.com/stocks/ives/financials/ratios/
+ERROR 2025-12-13 10:28:55,046 base_scraper Request failed for https://www.gurufocus.com/stock/JPM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/JPM/summary
+ERROR 2025-12-13 10:28:55,211 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
+ERROR 2025-12-13 10:28:56,204 base_scraper Request failed for https://www.gurufocus.com/stock/LLY/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/LLY/summary
+ERROR 2025-12-13 10:28:56,461 base_scraper Request failed for https://www.gurufocus.com/stock/MA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/MA/summary
+ERROR 2025-12-13 10:28:57,348 base_scraper Request failed for https://www.gurufocus.com/stock/MA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/MA/summary
+ERROR 2025-12-13 10:28:57,984 base_scraper Request failed for https://www.gurufocus.com/stock/META/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/META/summary
+ERROR 2025-12-13 10:28:58,769 base_scraper Request failed for https://www.gurufocus.com/stock/META/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/META/summary
+ERROR 2025-12-13 10:28:59,377 base_scraper Request failed for https://www.gurufocus.com/stock/MSFT/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/MSFT/summary
+ERROR 2025-12-13 10:29:00,106 base_scraper Request failed for https://www.gurufocus.com/stock/MSFT/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/MSFT/summary
+ERROR 2025-12-13 10:29:00,698 base_scraper Request failed for https://www.gurufocus.com/stock/NFLX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NFLX/summary
+ERROR 2025-12-13 10:29:01,460 base_scraper Request failed for https://www.gurufocus.com/stock/NFLX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NFLX/summary
+ERROR 2025-12-13 10:29:02,219 base_scraper Request failed for https://www.gurufocus.com/stock/NOC/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NOC/summary
+ERROR 2025-12-13 10:29:02,775 base_scraper Request failed for https://www.gurufocus.com/stock/NOC/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NOC/summary
+ERROR 2025-12-13 10:29:03,702 base_scraper Request failed for https://www.gurufocus.com/stock/NRG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NRG/summary
+ERROR 2025-12-13 10:29:04,041 base_scraper Request failed for https://www.gurufocus.com/stock/NRG/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NRG/summary
+ERROR 2025-12-13 10:29:05,003 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
+ERROR 2025-12-13 10:29:05,292 base_scraper Request failed for https://www.gurufocus.com/stock/NVDA/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/NVDA/summary
+ERROR 2025-12-13 10:29:06,333 base_scraper Request failed for https://www.gurufocus.com/stock/ORCL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ORCL/summary
+ERROR 2025-12-13 10:29:06,658 base_scraper Request failed for https://www.gurufocus.com/stock/ORCL/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ORCL/summary
+ERROR 2025-12-13 10:29:08,053 base_scraper Request failed for https://www.gurufocus.com/stock/OSMCX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/OSMCX/summary
+ERROR 2025-12-13 10:29:08,254 base_scraper Request failed for https://www.gurufocus.com/stock/OSMCX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/OSMCX/summary
+ERROR 2025-12-13 10:29:08,263 base_scraper Request failed for https://stockanalysis.com/stocks/osmcx/financials/ratios/: 404 Client Error: Not Found for url: https://stockanalysis.com/stocks/osmcx/financials/ratios/
+ERROR 2025-12-13 10:29:08,401 base_scraper Request failed for https://stockanalysis.com/stocks/osmcx/financials/ratios/: 404 Client Error: Not Found for url: https://stockanalysis.com/stocks/osmcx/financials/ratios/
+ERROR 2025-12-13 10:29:09,399 base_scraper Request failed for https://www.gurufocus.com/stock/PRU/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/PRU/summary
+ERROR 2025-12-13 10:29:09,675 base_scraper Request failed for https://www.gurufocus.com/stock/PRU/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/PRU/summary
+ERROR 2025-12-13 10:29:10,745 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
+ERROR 2025-12-13 10:29:11,157 base_scraper Request failed for https://www.gurufocus.com/stock/QCOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/QCOM/summary
+ERROR 2025-12-13 10:29:12,072 base_scraper Request failed for https://www.gurufocus.com/stock/RBLX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/RBLX/summary
+ERROR 2025-12-13 10:29:12,441 base_scraper Request failed for https://www.gurufocus.com/stock/RBLX/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/RBLX/summary
+ERROR 2025-12-13 10:29:13,462 base_scraper Request failed for https://www.gurufocus.com/stock/ROAD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ROAD/summary
+ERROR 2025-12-13 10:29:13,813 base_scraper Request failed for https://www.gurufocus.com/stock/ROAD/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/ROAD/summary
+ERROR 2025-12-13 10:29:14,963 base_scraper Request failed for https://www.gurufocus.com/stock/SPCE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/SPCE/summary
+ERROR 2025-12-13 10:29:15,138 base_scraper Request failed for https://www.gurufocus.com/stock/SPCE/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/SPCE/summary
+ERROR 2025-12-13 10:29:16,348 base_scraper Request failed for https://www.gurufocus.com/stock/TSM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/TSM/summary
+ERROR 2025-12-13 10:29:16,502 base_scraper Request failed for https://www.gurufocus.com/stock/TSM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/TSM/summary
+ERROR 2025-12-13 10:29:18,057 base_scraper Request failed for https://www.gurufocus.com/stock/V/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/V/summary
+ERROR 2025-12-13 10:29:18,064 base_scraper Request failed for https://www.gurufocus.com/stock/V/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/V/summary
+ERROR 2025-12-13 10:29:19,411 base_scraper Request failed for https://www.gurufocus.com/stock/VIK/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/VIK/summary
+ERROR 2025-12-13 10:29:19,482 base_scraper Request failed for https://www.gurufocus.com/stock/VIK/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/VIK/summary
+ERROR 2025-12-13 10:29:20,866 base_scraper Request failed for https://www.gurufocus.com/stock/VST/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/VST/summary
+ERROR 2025-12-13 10:29:21,023 base_scraper Request failed for https://www.gurufocus.com/stock/VST/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/VST/summary
+ERROR 2025-12-13 10:29:22,285 base_scraper Request failed for https://www.gurufocus.com/stock/XOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/XOM/summary
+ERROR 2025-12-13 10:29:22,291 base_scraper Request failed for https://www.gurufocus.com/stock/XOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/XOM/summary
