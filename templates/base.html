@@ -22,7 +22,7 @@
             --dark-bg: #111827;
             --card-bg: #1f2937;
             --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
+            --text-secondary: #f9fafb;
             --border-color: #374151;
         }
 
@@ -31,6 +31,10 @@
             background-color: var(--dark-bg);
             color: var(--text-primary);
             min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6, p, span, small, label, td, th, li, a {
+            color: var(--text-primary);
         }
 
         .navbar {
@@ -77,6 +81,18 @@
         .text-success { color: var(--success-color) !important; }
         .text-danger { color: var(--danger-color) !important; }
         .text-warning { color: var(--warning-color) !important; }
+        .text-secondary { color: var(--text-primary) !important; }
+        .text-muted { color: var(--text-primary) !important; }
+        .text-dark { color: var(--text-primary) !important; }
+
+        .alert {
+            color: var(--text-primary) !important;
+        }
+
+        .badge.bg-light {
+            color: var(--text-primary) !important;
+            background-color: var(--border-color) !important;
+        }
 
         .badge-bullish {
             background-color: var(--success-color);
@@ -106,7 +122,7 @@
         }
 
         .metric-label {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -136,7 +152,7 @@
 
         .news-source {
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
         }
 
         .news-headline {
@@ -191,7 +207,7 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
         }
 
         .update-indicator .dot {
@@ -212,7 +228,7 @@
             padding: 0.25rem 0.5rem;
             border-radius: 4px;
             background-color: var(--border-color);
-            color: var(--text-secondary);
+            color: var(--text-primary);
         }
 
         /* Responsive tables */
@@ -317,7 +333,7 @@
             align-items: center;
             gap: 0.25rem;
             font-size: 0.7rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
         }
 
         .score-bar {

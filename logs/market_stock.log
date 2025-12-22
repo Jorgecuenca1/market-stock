@@ -1669,3 +1669,15 @@ ERROR 2025-12-13 10:29:20,866 base_scraper Request failed for https://www.gurufo
 ERROR 2025-12-13 10:29:21,023 base_scraper Request failed for https://www.gurufocus.com/stock/VST/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/VST/summary
 ERROR 2025-12-13 10:29:22,285 base_scraper Request failed for https://www.gurufocus.com/stock/XOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/XOM/summary
 ERROR 2025-12-13 10:29:22,291 base_scraper Request failed for https://www.gurufocus.com/stock/XOM/summary: 403 Client Error: Forbidden for url: https://www.gurufocus.com/stock/XOM/summary
+INFO 2025-12-21 13:00:27,669 autoreload Watching for file changes with StatReloader
+WARNING 2025-12-21 13:03:39,600 log Not Found: /favicon.ico
+INFO 2025-12-22 13:35:16,538 autoreload C:\Users\HOME\PycharmProjects\market-stock\dashboard\views.py changed, reloading.
+INFO 2025-12-22 13:35:17,797 autoreload Watching for file changes with StatReloader
+INFO 2025-12-22 13:35:23,636 autoreload C:\Users\HOME\PycharmProjects\market-stock\dashboard\views.py changed, reloading.
+INFO 2025-12-22 13:35:24,274 autoreload Watching for file changes with StatReloader
+INFO 2025-12-22 13:35:42,922 autoreload C:\Users\HOME\PycharmProjects\market-stock\dashboard\views.py changed, reloading.
+INFO 2025-12-22 13:35:43,552 autoreload Watching for file changes with StatReloader
+INFO 2025-12-22 13:35:51,891 autoreload C:\Users\HOME\PycharmProjects\market-stock\dashboard\views.py changed, reloading.
+INFO 2025-12-22 13:35:52,541 autoreload Watching for file changes with StatReloader
+INFO 2025-12-22 13:35:58,853 autoreload C:\Users\HOME\PycharmProjects\market-stock\dashboard\views.py changed, reloading.
+INFO 2025-12-22 13:35:59,482 autoreload Watching for file changes with StatReloader

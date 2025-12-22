@@ -25,13 +25,19 @@ def set_language(request, lang):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
+def get_primary_stocks():
+    """Get list of primary dashboard stock symbols."""
+    return [s['symbol'] for s in settings.TRACKED_STOCKS]
+
+
 def index(request):
     """Main dashboard view."""
     lang = get_language(request)
+    primary_symbols = get_primary_stocks()
 
-    # Get latest prices
+    # Get latest prices for primary stocks only
     stocks = []
-    for stock in Stock.objects.filter(is_active=True):
+    for stock in Stock.objects.filter(symbol__in=primary_symbols, is_active=True):
         latest_price = stock.prices.first()
         latest_analysis = stock.analyses.first()
         stocks.append({
@@ -48,8 +54,8 @@ def index(request):
             'price': latest_price,
         })
 
-    # Get recent news
-    recent_news = StockNews.objects.all()[:10]
+    # Get recent news for primary stocks only
+    recent_news = StockNews.objects.filter(stock__symbol__in=primary_symbols)[:10]
     market_news = MarketNews.objects.all()[:5]
 
     context = {
@@ -66,6 +72,7 @@ def index(request):
 def sp500_analysis(request):
     """S&P 500 Analysis report view."""
     lang = get_language(request)
+    primary_symbols = get_primary_stocks()
 
     # Get index data
     indices_data = []
@@ -95,9 +102,9 @@ def sp500_analysis(request):
                 'status': status,
             })
 
-    # Get stock analyses grouped by sector
+    # Get stock analyses grouped by sector (primary stocks only)
     sectors = {}
-    for stock in Stock.objects.filter(is_active=True):
+    for stock in Stock.objects.filter(symbol__in=primary_symbols, is_active=True):
         latest_analysis = stock.analyses.first()
         if latest_analysis:
             sector = stock.sector
@@ -110,7 +117,7 @@ def sp500_analysis(request):
 
     # Calculate summary stats - compatible with SQLite
     all_analyses = []
-    for stock in Stock.objects.filter(is_active=True):
+    for stock in Stock.objects.filter(symbol__in=primary_symbols, is_active=True):
         latest = stock.analyses.first()
         if latest:
             all_analyses.append(latest)
@@ -135,10 +142,11 @@ def sp500_analysis(request):
 def news_report(request):
     """News report view with real-time updates."""
     lang = get_language(request)
+    primary_symbols = get_primary_stocks()
 
-    # Get news grouped by stock
+    # Get news grouped by stock (primary stocks only)
     stocks_news = []
-    for stock in Stock.objects.filter(is_active=True):
+    for stock in Stock.objects.filter(symbol__in=primary_symbols, is_active=True):
         latest_price = stock.prices.first()
         news = stock.news.all()[:6]
         latest_analysis = stock.analyses.first()
@@ -167,7 +175,7 @@ def news_report(request):
         'sentiments': sentiments,
         'lang': lang,
         'report_date': timezone.now(),
-        'total_articles': StockNews.objects.count(),
+        'total_articles': StockNews.objects.filter(stock__symbol__in=primary_symbols).count(),
     }
     return render(request, 'dashboard/news_report.html', context)
 

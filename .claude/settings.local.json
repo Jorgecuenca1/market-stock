@@ -9,7 +9,9 @@
       "Bash(\".venv/Scripts/python.exe\":*)",
       "Bash(\".venv/Scripts/python.exe\" -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''Stocks initialized!'')\n\")",
       "Bash(\".venv/Scripts/python.exe\" manage.py shell -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''Stocks initialized!'')\n\")",
-      "Bash(\".venv/Scripts/python.exe\" manage.py shell -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''All stocks initialized!'')\n\")"
+      "Bash(\".venv/Scripts/python.exe\" manage.py shell -c \"\nfrom scraper.services import ScrapingService\nservice = ScrapingService()\nservice.initialize_stocks()\nprint(''All stocks initialized!'')\n\")",
+      "Bash(.venvScriptspython.exe manage.py runserver 8002)",
+      "Bash(python manage.py runserver:*)"
     ]
   }
 }
