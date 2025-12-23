@@ -116,7 +116,7 @@
                 <h6 class="text-secondary mb-3">{{ item.stock.name }}</h6>
 
                 <div class="row mb-3">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="metric-label">{% if lang == 'es' %}Precio{% else %}Price{% endif %}</div>
                         <div class="metric-value">
                             {% if item.price %}
@@ -126,8 +126,18 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="metric-label">{% if lang == 'es' %}Cambio{% else %}Change{% endif %}</div>
+                    <div class="col-4">
+                        <div class="metric-label">{% if lang == 'es' %}Cambio ${% else %}Change ${% endif %}</div>
+                        <div class="metric-value {% if item.price.change > 0 %}price-up{% elif item.price.change < 0 %}price-down{% endif %}">
+                            {% if item.price and item.price.change %}
+                            {% if item.price.change > 0 %}+{% endif %}${{ item.price.change|floatformat:2 }}
+                            {% else %}
+                            --
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="metric-label">{% if lang == 'es' %}Cambio %{% else %}Change %{% endif %}</div>
                         <div class="metric-value {% if item.price.change_percent > 0 %}price-up{% elif item.price.change_percent < 0 %}price-down{% endif %}">
                             {% if item.price and item.price.change_percent %}
                             {% if item.price.change_percent > 0 %}+{% endif %}{{ item.price.change_percent|floatformat:2 }}%

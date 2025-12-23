@@ -33,6 +33,8 @@ class YahooFinanceScraper(BaseScraper):
                 # Price data
                 'price': info.get('currentPrice') or info.get('regularMarketPrice'),
                 'previous_close': info.get('previousClose'),
+                'change': info.get('regularMarketChange'),
+                'change_percent': info.get('regularMarketChangePercent'),
                 'open': info.get('open') or info.get('regularMarketOpen'),
                 'day_high': info.get('dayHigh') or info.get('regularMarketDayHigh'),
                 'day_low': info.get('dayLow') or info.get('regularMarketDayLow'),
